@@ -1,0 +1,79 @@
+---
+// Contact section component
+---
+
+<section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 bg-dark-bg border-t border-border">
+	<div class="max-w-4xl mx-auto text-center space-y-12">
+		<!-- Section header -->
+		<div class="space-y-4 animate-slide-up">
+			<h2 class="text-4xl sm:text-5xl font-black">
+				Let's
+				<span class="text-accent"> Build</span>
+			</h2>
+			<p class="text-text-secondary text-lg max-w-2xl mx-auto">
+				Whether you're exploring backend infrastructure, scaling challenges, or just want to chat about distributed systems—let's connect.
+			</p>
+		</div>
+
+		<!-- Contact methods -->
+		<div class="space-y-6 animate-slide-up" style={{ animationDelay: '100ms' }}>
+			<!-- Email -->
+			<div class="group">
+				<a
+					href="mailto:gabriel.rodriguezest@gmail.com"
+					class="inline-block text-lg sm:text-xl font-mono text-accent hover:text-accent-hover transition-colors duration-250 relative"
+				>
+					gabriel.rodriguezest@gmail.com
+					<span class="absolute bottom-0 left-0 w-0 h-1 bg-accent group-hover:w-full transition-all duration-300"></span>
+				</a>
+			</div>
+
+			<!-- Social links -->
+			<div class="flex flex-col sm:flex-row justify-center gap-6 sm:gap-12 pt-8">
+				<a
+					href="https://github.com/KITEG21"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="text-text-secondary hover:text-accent transition-colors duration-250 font-mono text-sm flex items-center justify-center gap-2"
+				>
+					<span>GitHub</span>
+					<span>→</span>
+				</a>
+				<a
+					href="https://www.linkedin.com/in/gabriel-esteban-rd/"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="text-text-secondary hover:text-accent transition-colors duration-250 font-mono text-sm flex items-center justify-center gap-2"
+				>
+					<span>LinkedIn</span>
+					<span>→</span>
+				</a>
+			</div>
+		</div>
+
+		<!-- Status message -->
+		<div class="pt-8 border-t border-border/30">
+			<p class="text-text-secondary text-sm font-mono">
+				Currently <span class="text-green-400">available</span> for consulting & full-time roles
+			</p>
+		</div>
+	</div>
+</section>
+
+<style>
+	@keyframes slideUp {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	.animate-slide-up {
+		animation: slideUp 0.6s ease-out forwards;
+		opacity: 0;
+	}
+</style>

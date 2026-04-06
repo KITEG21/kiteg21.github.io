@@ -1,0 +1,27 @@
+---
+import projectsData from '../data/projects.json';
+
+export const prerender = true;
+
+const site = Astro.site ?? 'https://gabrielrd.me';
+const now = new Date().toISOString();
+const pages = [
+  { url: '/', priority: '1.00' },
+  { url: '/projects', priority: '0.80' },
+  ...projectsData.projects.map((project) => ({
+    url: `/projects/${project.slug}`,
+    priority: '0.64',
+  })),
+];
+Astro.response.headers.set('content-type', 'application/xml; charset=utf-8');
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {pages.map((page) => (
+    <url>
+      <loc>{`${site}${page.url}`}</loc>
+      <lastmod>{now}</lastmod>
+      <priority>{page.priority}</priority>
+    </url>
+  ))}
+</urlset>

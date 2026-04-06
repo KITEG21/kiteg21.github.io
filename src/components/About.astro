@@ -1,0 +1,108 @@
+---
+// About section component
+---
+
+<section id="about" class="py-20 px-4 sm:px-6 lg:px-8 bg-dark-bg">
+	<div class="max-w-4xl mx-auto space-y-12">
+		<!-- Section header -->
+		<div class="space-y-4 animate-slide-up">
+			<h2 class="text-4xl sm:text-5xl font-black">
+				About
+				<span class="text-accent"> Me</span>
+			</h2>
+		</div>
+
+		<!-- Content -->
+		<div class="prose prose-invert max-w-none space-y-6 animate-slide-up" style={{ animationDelay: '100ms' }}>
+			<p class="text-text-secondary text-lg leading-relaxed">
+				I’m a Backend Engineer focused on building scalable, reliable systems with clean architecture and strong 
+				performance characteristics. I have hands-on experience developing production-grade APIs using .NET and PostgreSQL, 
+				where I’ve worked on optimizing queries, improving system efficiency, and implementing complex business logic. 
+				I enjoy creating products that satisfy clients—not just making something useful, 
+				but building applications that users genuinely love.
+			</p>
+
+			<p class="text-text-secondary text-lg leading-relaxed">
+				My work is driven by a deep interest in system design and backend architecture, 
+				with a focus on creating solutions that are not only useful but also scalable and easy to maintain. 
+				I’m particularly interested in designing services that scale effectively while remaining maintainable.
+			</p>
+
+			<p class="text-text-secondary text-lg leading-relaxed">
+				Currently, I’m expanding my skill set toward AI-powered applications, combining backend engineering 
+				with modern AI capabilities to build smarter systems. I enjoy learning by building, 
+				continuously refining my approach, and working on projects that push me to think like an engineer, not just a developer.
+			</p>
+
+			<!-- Quick stats -->
+			<div class="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8">
+				<div class="border-l-2 border-accent pl-4">
+					<div class="text-2xl font-black text-accent">1+</div>
+					<div class="text-sm text-text-secondary">Years Building</div>
+				</div>
+				<div class="border-l-2 border-accent pl-4">
+					<div class="text-2xl font-black text-accent">25+</div>
+					<div class="text-sm text-text-secondary">Projects Delivered</div>
+				</div>
+				<div class="border-l-2 border-accent pl-4">
+					<div class="text-2xl font-black text-accent">5+</div>
+					<div class="text-sm text-text-secondary">Languages</div>
+				</div>
+				<div class="border-l-2 border-accent pl-4">
+					<div class="text-2xl font-black text-accent">∞</div>
+					<div class="text-sm text-text-secondary">To Learn</div>
+				</div>
+			</div>
+
+			<!-- Skills -->
+			<div class="pt-8">
+				<h3 class="text-lg font-bold mb-4">Core Focus Areas</h3>
+				<div class="flex flex-wrap gap-2">
+					{
+						[
+							'Backend Architecture',
+							'Distributed Systems',
+							'Database Design',
+                            '.NET',
+							'Go',
+							'TypeScript',
+							'Python',
+							'PostgreSQL',
+							'Microservices',
+							'API Design',
+							'Performance Optimization',
+						].map((skill) => (
+							<span class="px-4 py-2 bg-border text-text-secondary text-sm rounded border border-border/50 hover:border-accent/50 hover:text-accent transition-all duration-250">
+								{skill}
+							</span>
+						))
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	@keyframes slideUp {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	.animate-slide-up {
+		animation: slideUp 0.6s ease-out forwards;
+		opacity: 0;
+	}
+
+	.prose-invert {
+		--prose-body: rgba(255, 255, 255, 0.8);
+		--prose-headings: rgba(255, 255, 255, 1);
+		--prose-links: rgb(79, 70, 229);
+	}
+</style>

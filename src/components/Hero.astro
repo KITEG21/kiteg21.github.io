@@ -1,0 +1,102 @@
+---
+// Hero section component
+---
+
+<section id="home" class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-20 bg-dark-bg">
+	<div class="max-w-4xl mx-auto text-center space-y-8 animate-fade-in">
+
+
+		<!-- Main heading -->
+		 
+		<h1 class="text-5xl sm:text-7xl font-black font-sans tracking-tight">
+			<span class="interactive-text inline-block">Backend</span>
+			<br />
+			<span class="interactive-text text-accent inline-block animate-float">Systems Engineer</span>
+		</h1>
+		<h2 class="text-2xl sm:text-3xl font-black font-sans tracking-tight">
+			<span class="subheading-typing">Gabriel Esteban Rodriguez Delgado  ;</span>
+		</h2>
+
+		<!-- Subheading -->
+		<p class="text-lg sm:text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed">
+			I design systems that scale.
+			<br class="hidden sm:block" />
+			Currently exploring AI infrastructure and backend optimization.
+		</p>
+
+		<!-- CTA Buttons -->
+		<div class="flex flex-col sm:flex-row gap-4 items-center justify-center pt-4">
+			<a
+				href="#projects"
+				class="px-6 py-3 bg-accent text-dark-bg font-semibold rounded hover:bg-accent-hover hover:text-white transition-all duration-250 hover:shadow-lg hover:shadow-accent/50 group"
+			>
+				View My Work
+				<span class="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
+			</a>
+			<a
+				href="#contact"
+				class="px-6 py-3 border border-text-secondary text-text-secondary rounded hover:border-accent hover:text-accent transition-all duration-250"
+			>
+				Get In Touch
+			</a>
+		</div>
+
+		<!-- Scroll indicator -->
+		<div class="pt-8 animate-pulse-subtle">
+			<p class="text-xs text-text-secondary font-mono">↓ scroll</p>
+		</div>
+	</div>
+</section>
+
+<style>
+	.interactive-text {
+		transition: color 250ms ease, transform 250ms ease, text-shadow 250ms ease;
+		cursor: pointer;
+	}
+
+	.interactive-text:hover,
+	.interactive-text:focus-visible {
+		color: #38BDF8; /* sky-400 accent for interaction */
+		transform: translateY(-3px) scale(1.02);
+		text-shadow: 0 0 14px rgba(56, 189, 248, 0.45);
+	}
+
+	.interactive-text:active {
+		transform: translateY(1px) scale(0.99);
+		color: #f9d342;
+	}
+
+	@keyframes float-text {
+		0%, 100% { transform: translateY(0); }
+		50% { transform: translateY(-4px); }
+	}
+
+	.interactive-text.animate-float {
+		animation: float-text 4s ease-in-out infinite;
+	}
+
+	@keyframes typing {
+		from { width: 0; }
+		to { width: 100%; }
+	}
+
+	@keyframes blink {
+		0%, 100% { border-color: transparent; }
+		50% { border-color: #38BDF8; }
+	}
+
+	.subheading-typing {
+		display: inline-block;
+		overflow: hidden;
+		white-space: nowrap;
+		border-right: 2px solid #38BDF8;
+		animation: typing 2.8s steps(36,end) 0.4s forwards, blink 0.75s step-end infinite;
+		width: 0;
+	}
+
+	@media (max-width: 640px) {
+		h1 {
+			font-size: 2.5rem;
+		}
+	}
+</style>

@@ -1,0 +1,158 @@
+﻿{
+  "projects": [
+    {
+      "slug": "renta",
+      "name": "Renta",
+      "status": "ACTIVE",
+      "description": ".NET 9.0 Web API for premium rentals (cars, yachts) and event ticketing with QR tickets, Stripe payments, and multimedia management.",
+      "techStack": [".NET 9", "FastEndpoints", "EF Core", "PostgreSQL", "Stripe", "Cloudinary", "JWT", "Serilog"],
+      "github": "https://github.com/KITEG21/RentaApi",
+      "demo": "https://rentapi-h4avbwhzgseffugv.canadacentral-01.azurewebsites.net/scalar/",
+      "icon": "",
+      "overview": "High-performance modular backend for luxury rentals and event management with multi-entity inventory for cars, yachts, and events, plus QR ticketing and integrated payment workflows.",
+      "architectureNotes": "Renta.WebApi -> Renta.Application (CQRS) -> Renta.Domain -> Renta.Infrastructure. FastEndpoints routes, FluentValidation, dual DbContext for read/write, Stripe webhooks, and media via Cloudinary.",
+      "decisions": [
+        "CQRS pattern for separations of read and write operations",
+        "FastEndpoints for modern minimal APIs over MVC",
+        "Repository pattern for testable data access",
+        "Dual DbContext for CQRS-oriented read/write separation",
+        "FluentValidation for declarative request validation",
+        "Cloudinary for scalable multimedia CDN",
+        "Stripe webhooks for async, idempotent payment processing",
+        "JWT auth for stateless role-based security"
+      ],
+      "challenges": [
+        "Dual DbContext increases migration complexity",
+        "Webhook testing requires CLI or staging infrastructure",
+        "Offline QR ticket validation vs real-time sync complexity",
+        "Cloudinary bindings introduce vendor lock-in",
+        "CQRS adds file/model overhead but scales query performance"
+      ],
+      "tradeoffs": [
+        "Monorepo API complexity vs modular services",
+        "CQRS complexity vs query performance optimization",
+        "Fluent validation schema vs more app code overhead",
+        "JWT stateless auth vs formal session management",
+        "Cloudinary lock-in vs managed media benefits"
+      ],
+      "diagram": {
+        "components": [
+          { "id": "webapi", "name": "Renta.WebApi", "x": 80, "y": 50 },
+          { "id": "application", "name": "Renta.Application", "x": 260, "y": 50 },
+          { "id": "domain", "name": "Renta.Domain", "x": 440, "y": 50 },
+          { "id": "infrastructure", "name": "Renta.Infrastructure", "x": 620, "y": 50 },
+          { "id": "db", "name": "PostgreSQL", "x": 800, "y": 50 }
+        ],
+        "edges": [
+          { "from": "webapi", "to": "application" },
+          { "from": "application", "to": "domain" },
+          { "from": "domain", "to": "infrastructure" },
+          { "from": "infrastructure", "to": "db" }
+        ]
+      }
+    },
+    {
+      "slug": "rules-engine",
+      "name": "Amán Rules Engine",
+      "status": "ACTIVE",
+      "description": "Full-stack rules authoring & eval platform: React + Next.js UI with AI natural-language to AST conversions, plus a high-performance Go evaluator.",
+      "techStack": ["Next.js", "React", "TypeScript", "Go", "PostgreSQL", "pgx", "chi", "sqlc", "Gemini (LLM)"],
+      "github": "https://github.com/KITEG21/rules-engine-api",
+      "demo": "https://aman-rules-engine.vercel.app/",
+      "icon": "",
+      "overview": "Text-to-AST rules engine where users type intent, click Generate, external LLM (Gemini) returns AST, UI renders JSON + interactive editor, and engine evaluates with trace output.",
+      "architectureNotes": "Next.js / React UI -> LLM API (Gemini) for NL-to-AST -> AST render + UI test data -> Go rule evaluator (+ trace) -> result output. Backend persisted in Postgres JSONB, evaluator in-memory per request.",
+      "decisions": [
+        "Go for performance and strong typing",
+        "PostgreSQL JSONB for flexible persisted rule models",
+        "chi for minimal routing and extensible middleware",
+        "WebLLM (Gemini) to avoid hosting own model and leverage latest LLM capabilities"
+      ],
+      "challenges": [
+        "JSON serialization of pgx JSONB []byte in responses",
+        "Type-safety with dynamic rule payloads",
+        "Operator flexibility for eq/gte/string/collection",
+        "Nested field resolution via dot notation parser"
+      ],
+      "tradeoffs": [
+        "Parser creates new instance per request (MVP allocation overhead)",
+        "Regex compiled on each evaluation instead of cache (deferred optimization)",
+        "No DB-level rule caching yet (could add Redis later)",
+        "Single-node evaluator vs distributed (chosen for initial release)",
+        "No auth on rules API yet; design MVP first, add JWT later"
+      ],
+      "diagram": {
+        "components": [
+          { "id": "ui", "name": "Next.js UI", "x": 40, "y": 50 },
+          { "id": "llm", "name": "Gemini LLM API", "x": 180, "y": 50 },
+          { "id": "ast", "name": "AST Generator", "x": 320, "y": 50 },
+          { "id": "evaluator", "name": "Go Evaluator", "x": 460, "y": 50 },
+          { "id": "psql", "name": "PostgreSQL JSONB", "x": 600, "y": 50 }
+        ],
+        "edges": [
+          { "from": "ui", "to": "llm" },
+          { "from": "llm", "to": "ast" },
+          { "from": "ast", "to": "evaluator" },
+          { "from": "evaluator", "to": "psql" },
+          { "from": "evaluator", "to": "ui" }
+        ]
+      }
+
+    },
+    {
+      "slug": "zitasmart",
+      "name": "ZitaSmart",
+      "status": "ACTIVE",
+      "description": "Multi-tenant SaaS booking platform for service-based businesses (salons, clinics, consultants). Manage appointments, workers, services, and subscriptions.",
+      "techStack": ["Next.js", "React", "TypeScript", "Tailwind CSS", ".NET Core", "PostgreSQL", "EF Core", "JWT", "Cloudinary"],
+      "github": "https://github.com/HorizonGH/bookingSystem",
+      "demo": "https://zita-smart.vercel.app/",
+      "icon": "",
+      "overview": "ZitaSmart is a full-stack booking management system designed for service-based businesses. It provides multi-tenancy with role-based access (SuperAdmin, TenantAdmin, Worker, Client), real-time booking management with status tracking, and flexible subscription tiers (Free, Basic $20, Professional $50, Enterprise $100). Cloudinary integration enables tenant branding with image management.",
+      "architectureNotes": "Monorepo architecture (pnpm + Turbo) with Next.js 15 frontend and .NET Core backend. Backend uses Clean Architecture: WebApi -> Application (CQRS) -> Domain -> Infrastructure (EF Core + PostgreSQL). Database includes identity, multi-tenancy, booking, and payment schemas.",
+      "decisions": [
+        "Monorepo with pnpm + Turbo for shared code, faster builds, and unified CI/CD",
+        "Next.js 15 App Router for server components, SEO, and modern React patterns",
+        ".NET Clean Architecture for separation of concerns, testability, and maintainability",
+        "EF Core with PostgreSQL for relational data, migrations, and strong typing",
+        "JWT + Refresh Tokens for secure stateless authentication with rotation",
+        "Soft Delete for data pzitation and global query filters",
+        "Generic Repositories to apply DRY principle for CRUD operations",
+        "Multi-tier subscription plans with enforced usage limits per tier"
+      ],
+      "challenges": [
+        "Concurrency: Handling simultaneous booking requests for the same slot",
+        "Multi-tenancy isolation: Ensuring data separation while keeping queries efficient",
+        "Subscription limits: Enforcing plan constraints on workers, services, and zitations",
+        "Worker availability: Complex scheduling logic with overrides and vacation handling",
+        "Payment integration: Manual proof upload combined with session management"
+      ],
+      "tradeoffs": [
+        "Monorepo complexity vs. independent deployments - chose developer experience over deployment flexibility",
+        "EF Core (productivity) vs. raw SQL (performance) - prioritized maintainability and safety",
+        "Generic repositories (DRY) vs. specific queries - accepted some performance overhead",
+        "JWT access tokens (stateless) vs. session management - chose horizontal scalability",
+        "Frontend/backend coupling vs. SOA - chose faster iteration for MVP"
+      ],
+      "diagram": {
+        "components": [
+          { "id": "nextjs", "name": "Next.js", "x": 80, "y": 50 },
+          { "id": "api", "name": ".NET API", "x": 240, "y": 50 },
+          { "id": "app", "name": "Application", "x": 400, "y": 50 },
+          { "id": "domain", "name": "Domain", "x": 560, "y": 50 },
+          { "id": "infra", "name": "Infrastructure", "x": 720, "y": 50 },
+          { "id": "db", "name": "PostgreSQL", "x": 880, "y": 50 }
+        ],
+        "edges": [
+          { "from": "nextjs", "to": "api" },
+          { "from": "api", "to": "app" },
+          { "from": "app", "to": "domain" },
+          { "from": "domain", "to": "infra" },
+          { "from": "infra", "to": "db" }
+        ]
+      }
+
+    }
+
+  ]
+}

@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Smooth scroll behavior */
+html {
+	scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: #0B0B0C;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #4F46E5;
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #4539D3;
+}
+
+/* Selection color */
+::selection {
+	background-color: #4F46E5;
+	color: #FFFFFF;
+}
+
+/* Links */
+a {
+	@apply transition-colors duration-250;
+}
+
+a:hover {
+	@apply text-accent;
+}
+
+/* Smooth transitions */
+* {
+	@apply transition-colors duration-250;
+}
+
+/* Custom paragraph spacing */
+p {
+	@apply leading-relaxed;
+}
+
+/* Code blocks */
+code {
+	@apply bg-dark-bg border border-border rounded px-2 py-1 text-sm font-mono text-accent;
+}

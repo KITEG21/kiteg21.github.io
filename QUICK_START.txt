@@ -1,0 +1,98 @@
+PORTFOLIO QUICK START CHECKLIST
+================================
+
+## 🚀 Initial Setup
+
+[x] Install dependencies
+    Command: npm install
+
+[x] Start development server
+    Command: npm run dev
+    Browser: http://localhost:3000
+
+## ✏️  Update Your Info (Required)
+
+[ ] Hero Section
+    File: src/components/Hero.astro
+    - Update heading/subheading
+    - Change CTA button text & links
+    - Update status badge
+
+[ ] Projects
+    File: src/components/Projects.astro
+    - Update project names
+    - Update descriptions
+    - Update tech stacks
+    - Update GitHub/demo links
+
+[ ] About Section
+    File: src/components/About.astro
+    - Rewrite biography
+    - Update skills/tech
+    - Change stats
+
+[ ] Contact
+    File: src/components/Contact.astro
+    - Update email
+    - Update social links
+
+[ ] Navigation & Footer
+    File: src/layouts/Layout.astro
+    - Update navbar branding
+    - Update footer text
+
+## 🎨 Customize Appearance (Optional)
+
+[ ] Colors
+    File: tailwind.config.cjs
+    - Change accent color
+    - Change backgrounds
+    - Custom theme
+
+[ ] Animations
+    File: src/styles/global.css
+    - Adjust timing
+    - Modify effects
+
+## 🌐 Prepare for Deployment
+
+[ ] Update site URL
+    File: astro.config.mjs
+    - Set your domain
+
+[ ] Update metadata
+    File: src/layouts/Layout.astro
+    - Update title
+    - Update description
+
+[ ] Test build
+    Command: npm run build
+    Command: npm run preview
+
+## 🚢 Deploy
+
+[ ] Choose hosting (Vercel, Netlify, GitHub Pages)
+[ ] Connect repo and deploy
+[ ] Verify site is live
+[ ] Test all links and functionality
+
+## ✅ Final Checklist
+
+[ ] All links work (GitHub, LinkedIn, email, etc.)
+[ ] Mobile responsive looks good
+[ ] Dark theme consistent
+[ ] No typos or spelling errors
+[ ] All images/assets load correctly
+[ ] Page loads fast (no unused JS)
+[ ] Animations are subtle and responsive
+
+---
+
+💡 TIPS:
+- Keep descriptions concise and impactful
+- Use status badges accurately (ACTIVE, STABLE, etc.)
+- Test on mobile before deploying
+- Update projects regularly
+- Keep content honest and current
+
+Happy building! 🚀

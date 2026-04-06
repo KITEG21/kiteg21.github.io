@@ -1,0 +1,78 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+	keywords?: string;
+}
+
+const {
+	title = 'Portfolio',
+	description = 'Backend engineer, distributed systems, and AI',
+	keywords = 'Gabriel Rodríguez Delgado, Gabriel Esteban Rodriguez Delgado, Gabriel Rodriguez, Gabriel rd, Gabriel.rd, backend engineer, distributed systems, AI, portfolio, software engineering',
+} = Astro.props;
+const siteUrl = Astro.site ?? '';
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="keywords" content={keywords} />
+		<meta name="robots" content="index, follow" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/x-icon" href="/icon.ico" />
+		<title>{title}</title>
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		{siteUrl && <meta property="og:url" content={siteUrl} />}
+		<meta property="og:site_name" content="Gabriel.rd | Portfolio" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		{siteUrl && <link rel="canonical" href={siteUrl} />}
+		<style is:global>
+			html {
+				color-scheme: dark;
+			}
+		</style>
+	</head>
+	<body class="bg-dark-bg text-text-primary font-sans antialiased">
+		<!-- Minimal navbar -->
+		<nav class="fixed top-0 w-full z-50 bg-dark-bg/80 backdrop-blur-sm border-b border-border">
+			<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+				<a href="/" class="text-lg font-bold hover:text-accent transition-colors">
+					&lt; /web &gt;
+				</a>
+				<div class="hidden sm:flex gap-6 text-sm">
+				<a href="/#projects" class="hover:text-accent transition-colors">Projects</a>
+				<a href="/#about" class="hover:text-accent transition-colors">About</a>
+				<a href="/#contact" class="hover:text-accent transition-colors">Contact</a>
+				</div>
+			</div>
+		</nav>
+
+		<!-- Main content -->
+		<main class="pt-16">
+			<slot />
+		</main>
+
+		<!-- Footer -->
+		<footer class="py-12 border-t border-border mt-20 bg-dark-bg">
+			<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+				<p class="text-text-secondary text-sm text-center">
+					© 2025. Engineered with purpose.
+				</p>
+			</div>
+		</footer>
+	</body>
+</html>
+
+<style>
+	body {
+		font-family: 'Inter', system-ui, -apple-system, sans-serif;
+	}
+</style>
