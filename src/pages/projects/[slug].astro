@@ -1,6 +1,9 @@
 ---
 import projectsData from '../../data/projects.json';
 import Layout from '../../layouts/Layout.astro';
+import ProjectDetail from '../../components/ProjectDetail.astro';
+import { copy } from '../../i18n';
+import { localizeProject } from '../../data/projectTranslations';
 
 export async function getStaticPaths() {
   return projectsData.projects.map((project) => ({ params: { slug: project.slug } }));
@@ -8,208 +11,15 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 const project = projectsData.projects.find((p) => p.slug === slug);
+const t = copy.en;
 
 if (!project) {
   throw new Error(`Project not found: ${slug}`);
 }
+
+const localizedProject = localizeProject(project, 'en');
 ---
 
-<Layout title={`${project.name} — Project`}> 
-  <main class="py-20 px-4 sm:px-6 lg:px-8 bg-dark-bg min-h-screen">
-    <div class="max-w-5xl mx-auto space-y-16">
-      <header class="space-y-6 animate-fade-in">
-        <div class="space-y-4">
-          <div class="flex items-start gap-4">
-            <span class="text-5xl">{project.icon}</span>
-            <div class="flex-1">
-              <h1 class="text-5xl sm:text-6xl font-black text-text-primary">{project.name}</h1>
-              <p class="text-text-secondary text-lg mt-2">{project.description}</p>
-            </div>
-          </div>
-          <!-- Tech Stack Pills -->
-          <div class="flex flex-wrap gap-2 pt-4">
-            {project.techStack.map((tech) => (
-              <span class="px-3 py-1 bg-accent/10 border border-accent/30 text-accent text-xs font-mono rounded">
-                {tech}
-              </span>
-            ))}
-          </div>
-        </div>
-      </header>
-
-      <!-- Overview -->
-      <section class="space-y-4 animate-slide-up" style={{ animationDelay: '100ms' }}>
-        <h2 class="text-3xl font-black text-text-primary">Overview</h2>
-        <div class="prose prose-invert max-w-none">
-          <p class="text-text-secondary text-lg leading-relaxed">{project.overview || project.description}</p>
-        </div>
-      </section>
-
-      <!-- Architecture with Enhanced Diagram -->
-      <section class="space-y-6 animate-slide-up" style={{ animationDelay: '200ms' }}>
-        <h2 class="text-3xl font-black text-text-primary">Architecture</h2>
-        <div class="prose prose-invert max-w-none mb-6">
-          <p class="text-text-secondary text-lg leading-relaxed">{project.architectureNotes || 'Architecture notes coming soon.'}</p>
-        </div>
-        
-        <!-- Dynamic Diagram from Project Data -->
-        {project.diagram ? (
-          <div class="p-6 border border-border rounded-lg bg-dark-bg/40 backdrop-blur-sm overflow-x-auto">
-            <svg viewBox="0 0 1000 150" class="w-full min-w-max" style="height: auto;">
-              <defs>
-                <marker id="arrowDynamic" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                  <polygon points="0 0, 10 3, 0 6" fill="#4F46E5" />
-                </marker>
-              </defs>
-              
-              {/* Render edges (lines behind components) */}
-              {project.diagram.edges?.map((edge) => {
-                const fromComp = project.diagram.components.find((c) => c.id === edge.from);
-                const toComp = project.diagram.components.find((c) => c.id === edge.to);
-                if (!fromComp || !toComp) return null;
-                const x1 = fromComp.x + 60;
-                const y1 = fromComp.y + 30;
-                const x2 = toComp.x;
-                const y2 = toComp.y + 30;
-                return (
-                  <line
-                    x1={x1}
-                    y1={y1}
-                    x2={x2}
-                    y2={y2}
-                    stroke="#4F46E5"
-                    stroke-width="2"
-                    marker-end="url(#arrowDynamic)"
-                  />
-                );
-              })}
-              
-              {/* Render components (boxes) */}
-              {project.diagram.components?.map((comp) => (
-                <g>
-                  <rect
-                    x={comp.x}
-                    y={comp.y}
-                    width="120"
-                    height="60"
-                    rx="8"
-                    fill="#0b0b0c"
-                    stroke="#4F46E5"
-                    stroke-width="2"
-                  />
-                  <text
-                    x={comp.x + 60}
-                    y={comp.y + 35}
-                    text-anchor="middle"
-                    fill="#FFFFFF"
-                    font-weight="bold"
-                    font-size="12"
-                  >
-                    {comp.name}
-                  </text>
-                </g>
-              ))}
-            </svg>
-          </div>
-        ) : (
-          <div class="p-6 border border-border rounded-lg bg-dark-bg/40">
-            <p class="text-text-secondary">Diagram coming soon.</p>
-          </div>
-        )}
-      </section>
-
-      <!-- Key Technical Decisions -->
-      <section class="space-y-6 animate-slide-up" style={{ animationDelay: '300ms' }}>
-        <h2 class="text-3xl font-black text-text-primary">Key Technical Decisions</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {project.decisions?.map((decision) => (
-            <div class="p-4 border border-border/50 rounded-lg bg-dark-bg/40 hover:border-accent/50 transition-all duration-250">
-              <p class="text-text-secondary leading-relaxed text-sm">{decision}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <!-- Challenges -->
-      <section class="space-y-6 animate-slide-up" style={{ animationDelay: '400ms' }}>
-        <h2 class="text-3xl font-black text-text-primary">Challenges</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {project.challenges?.map((challenge) => (
-            <div class="p-4 border-l-2 border-accent bg-dark-bg/40 rounded-r-lg">
-              <p class="text-text-secondary leading-relaxed text-sm">{challenge}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <!-- Trade-offs -->
-      <section class="space-y-6 animate-slide-up" style={{ animationDelay: '500ms' }}>
-        <h2 class="text-3xl font-black text-text-primary">Trade-offs</h2>
-        <div class="space-y-3">
-          {project.tradeoffs?.map((tradeoff) => (
-            <div class="p-4 border border-border/30 rounded-lg bg-gradient-to-r from-accent/5 to-transparent hover:border-accent/50 transition-all duration-250">
-              <p class="text-text-secondary leading-relaxed text-sm">{tradeoff}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <!-- Demo / Repo -->
-      <section class="space-y-6 animate-slide-up" style={{ animationDelay: '600ms' }}>
-        <h2 class="text-3xl font-black text-text-primary">Resources</h2>
-        <div class="flex flex-col sm:flex-row gap-4">
-          {project.github && (
-            <a href={project.github} target="_blank" rel="noopener noreferrer" 
-               class="flex-1 px-6 py-4 border border-accent/30 bg-accent/5 hover:bg-accent/10 hover:border-accent text-accent rounded-lg transition-all duration-250 text-center font-semibold">
-              GitHub Repository →
-            </a>
-          )}
-          {project.demo && (
-            <a href={project.demo} target="_blank" rel="noopener noreferrer" 
-               class="flex-1 px-6 py-4 bg-accent text-dark-bg hover:bg-accent-hover rounded-lg transition-all duration-250 text-center font-semibold shadow-lg hover:shadow-accent/50">
-              Live Demo →
-            </a>
-          )}
-        </div>
-      </section>
-
-    </div>
-  </main>
+<Layout title={`${localizedProject.name} — Project`} locale="en" copy={t}>
+  <ProjectDetail project={localizedProject} copy={t} locale="en" />
 </Layout>
-
-<style is:global>
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .animate-fade-in {
-    animation: fadeIn 0.6s ease-out forwards;
-  }
-
-  .animate-slide-up {
-    animation: slideUp 0.6s ease-out forwards;
-    opacity: 0;
-  }
-
-  .prose-invert {
-    --prose-body: rgba(255, 255, 255, 0.8);
-    --prose-headings: rgba(255, 255, 255, 1);
-    --prose-links: rgb(79, 70, 229);
-  }
-</style>

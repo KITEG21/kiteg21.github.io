@@ -1,0 +1,23 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import Projects from '../../components/Projects.astro';
+import About from '../../components/About.astro';
+import Contact from '../../components/Contact.astro';
+import { copy } from '../../i18n';
+
+const t = copy.es;
+---
+
+<Layout
+	title="Gabriel.rd | Portafolio"
+	description="Gabriel es un ingeniero backend que construye sistemas distribuidos, herramientas de IA y experiencias web."
+	keywords="Gabriel Rodríguez Delgado, Gabriel Esteban Rodriguez Delgado, backend engineer, sistemas distribuidos, IA, portafolio"
+	locale="es"
+	copy={t}
+>
+	<Hero hero={t.hero} />
+	<Projects locale="es" projects={t.projects} />
+	<About about={t.about} />
+	<Contact contact={t.contact} />
+</Layout>

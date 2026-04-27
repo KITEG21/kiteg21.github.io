@@ -1,5 +1,20 @@
 ---
-// About section component
+interface Props {
+	about: {
+		title1: string;
+		title2: string;
+		paragraphs: readonly string[];
+		stats: {
+			years: string;
+			delivered: string;
+			languages: string;
+			learn: string;
+		};
+		skillsTitle: string;
+	};
+}
+
+const { about } = Astro.props;
 ---
 
 <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 bg-dark-bg">
@@ -7,56 +22,40 @@
 		<!-- Section header -->
 		<div class="space-y-4 animate-slide-up">
 			<h2 class="text-4xl sm:text-5xl font-black">
-				About
-				<span class="text-accent"> Me</span>
+				{about.title1}
+				<span class="text-accent"> {about.title2}</span>
 			</h2>
 		</div>
 
 		<!-- Content -->
 		<div class="prose prose-invert max-w-none space-y-6 animate-slide-up" style={{ animationDelay: '100ms' }}>
-			<p class="text-text-secondary text-lg leading-relaxed">
-				I’m a Backend Engineer focused on building scalable, reliable systems with clean architecture and strong 
-				performance characteristics. I have hands-on experience developing production-grade APIs using .NET and PostgreSQL, 
-				where I’ve worked on optimizing queries, improving system efficiency, and implementing complex business logic. 
-				I enjoy creating products that satisfy clients—not just making something useful, 
-				but building applications that users genuinely love.
-			</p>
-
-			<p class="text-text-secondary text-lg leading-relaxed">
-				My work is driven by a deep interest in system design and backend architecture, 
-				with a focus on creating solutions that are not only useful but also scalable and easy to maintain. 
-				I’m particularly interested in designing services that scale effectively while remaining maintainable.
-			</p>
-
-			<p class="text-text-secondary text-lg leading-relaxed">
-				Currently, I’m expanding my skill set toward AI-powered applications, combining backend engineering 
-				with modern AI capabilities to build smarter systems. I enjoy learning by building, 
-				continuously refining my approach, and working on projects that push me to think like an engineer, not just a developer.
-			</p>
+			{about.paragraphs.map((paragraph) => (
+				<p class="text-text-secondary text-lg leading-relaxed">{paragraph}</p>
+			))}
 
 			<!-- Quick stats -->
 			<div class="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8">
 				<div class="border-l-2 border-accent pl-4">
 					<div class="text-2xl font-black text-accent">3+</div>
-					<div class="text-sm text-text-secondary">Years Building</div>
+					<div class="text-sm text-text-secondary">{about.stats.years}</div>
 				</div>
 				<div class="border-l-2 border-accent pl-4">
 					<div class="text-2xl font-black text-accent">25+</div>
-					<div class="text-sm text-text-secondary">Projects Delivered</div>
+					<div class="text-sm text-text-secondary">{about.stats.delivered}</div>
 				</div>
 				<div class="border-l-2 border-accent pl-4">
 					<div class="text-2xl font-black text-accent">5+</div>
-					<div class="text-sm text-text-secondary">Languages</div>
+					<div class="text-sm text-text-secondary">{about.stats.languages}</div>
 				</div>
 				<div class="border-l-2 border-accent pl-4">
 					<div class="text-2xl font-black text-accent">∞</div>
-					<div class="text-sm text-text-secondary">To Learn</div>
+					<div class="text-sm text-text-secondary">{about.stats.learn}</div>
 				</div>
 			</div>
 
 			<!-- Skills -->
 			<div class="pt-8">
-				<h3 class="text-lg font-bold mb-4">Core Focus Areas</h3>
+				<h3 class="text-lg font-bold mb-4">{about.skillsTitle}</h3>
 				<div class="flex flex-wrap gap-2">
 					{
 						[

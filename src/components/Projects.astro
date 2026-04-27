@@ -1,8 +1,25 @@
 ---
 import ProjectCard from './ProjectCard.astro';
 import projectsData from '../data/projects.json';
+import { withLocalePath, type Locale } from '../i18n';
+import { localizeProject } from '../data/projectTranslations';
 
-const projects = projectsData.projects;
+interface Props {
+	locale: Locale;
+	projects: {
+		title1: string;
+		title2: string;
+		subtitle: string;
+		cta: string;
+		repoLabel: string;
+		demoLabel: string;
+	};
+}
+
+const { locale, projects: copy } = Astro.props;
+
+const projects = projectsData.projects.map((project) => localizeProject(project, locale));
+const projectHref = (slug: string) => withLocalePath(`/projects/${slug}`, locale);
 ---
 
 <section id="projects" class="py-20 px-4 sm:px-6 lg:px-8 bg-dark-bg">
@@ -10,11 +27,11 @@ const projects = projectsData.projects;
 		<!-- Section header -->
 		<div class="mb-16 space-y-4 animate-slide-up">
 			<h2 class="text-4xl sm:text-5xl font-black">
-				Featured
-				<span class="text-accent"> Projects</span>
+				{copy.title1}
+				<span class="text-accent"> {copy.title2}</span>
 			</h2>
 			<p class="text-text-secondary text-lg max-w-2xl">
-				A selection of systems I've engineered. Each represents deep focus on scalability, reliability, and architectural clarity.
+				{copy.subtitle}
 			</p>
 		</div>
 
@@ -23,8 +40,8 @@ const projects = projectsData.projects;
 			{
 				projects.map((project, index) => (
 					<div style={{ animationDelay: `${index * 100}ms` }} class="animate-slide-up">
-						<a href={`/projects/${project.slug}`} class="block no-underline">
-							<ProjectCard {...project} />
+						<a href={projectHref(project.slug)} class="block no-underline">
+							<ProjectCard {...project} repoLabel={copy.repoLabel} demoLabel={copy.demoLabel} />
 						</a>
 					</div>
 				))
@@ -39,7 +56,7 @@ const projects = projectsData.projects;
 				rel="noopener noreferrer"
 				class="inline-block text-accent hover:text-accent-hover transition-colors duration-250"
 			>
-				View all projects →
+				{copy.cta}
 			</a>
 		</div>
 	</div>

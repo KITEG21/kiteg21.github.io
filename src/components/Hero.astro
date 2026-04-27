@@ -1,27 +1,40 @@
 ---
-// Hero section component
+interface Props {
+	hero: {
+		title1: string;
+		title2: string;
+		name: string;
+		subtitle1: string;
+		subtitle2: string;
+		primaryCta: string;
+		secondaryCta: string;
+		scroll: string;
+	};
+}
+
+const { hero } = Astro.props;
 ---
 
-<section id="home" class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-20 bg-dark-bg">
-	<div class="max-w-4xl mx-auto text-center space-y-8 animate-fade-in">
+<section id="home" class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-16 sm:py-20 bg-dark-bg">
+	<div class="max-w-4xl mx-auto text-center space-y-6 sm:space-y-8 animate-fade-in">
 
 
 		<!-- Main heading -->
 		 
-		<h1 class="text-5xl sm:text-7xl font-black font-sans tracking-tight">
-			<span class="interactive-text inline-block">Backend</span>
+		<h1 class="text-4xl sm:text-6xl lg:text-7xl font-black font-sans tracking-tight leading-[0.95] sm:leading-[0.9]">
+			<span class="interactive-text inline-block">{hero.title1}</span>
 			<br />
-			<span class="interactive-text text-accent inline-block animate-float">Systems Engineer</span>
+			<span class="interactive-text text-accent inline-block animate-float">{hero.title2}</span>
 		</h1>
-		<h2 class="text-2xl sm:text-3xl font-black font-sans tracking-tight">
-			<span class="subheading-typing">Gabriel Esteban Rodriguez Delgado  ;</span>
+		<h2 class="text-lg sm:text-2xl lg:text-3xl font-black font-sans tracking-tight leading-tight px-2 sm:px-0">
+			<span class="subheading-typing">{hero.name}</span>
 		</h2>
 
 		<!-- Subheading -->
-		<p class="text-lg sm:text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed">
-			I design systems that scale.
+		<p class="text-base sm:text-lg lg:text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed px-2 sm:px-0">
+			{hero.subtitle1}
 			<br class="hidden sm:block" />
-			Currently exploring AI infrastructure and backend optimization.
+			{hero.subtitle2}
 		</p>
 
 		<!-- CTA Buttons -->
@@ -30,20 +43,20 @@
 				href="#projects"
 				class="px-6 py-3 bg-accent text-dark-bg font-semibold rounded hover:bg-accent-hover hover:text-white transition-all duration-250 hover:shadow-lg hover:shadow-accent/50 group"
 			>
-				View My Work
+				{hero.primaryCta}
 				<span class="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
 			</a>
 			<a
 				href="#contact"
 				class="px-6 py-3 border border-text-secondary text-text-secondary rounded hover:border-accent hover:text-accent transition-all duration-250"
 			>
-				Get In Touch
+				{hero.secondaryCta}
 			</a>
 		</div>
 
 		<!-- Scroll indicator -->
 		<div class="pt-8 animate-pulse-subtle">
-			<p class="text-xs text-text-secondary font-mono">↓ scroll</p>
+			<p class="text-xs text-text-secondary font-mono">{hero.scroll}</p>
 		</div>
 	</div>
 </section>
@@ -96,7 +109,31 @@
 
 	@media (max-width: 640px) {
 		h1 {
-			font-size: 2.5rem;
+			font-size: 2.25rem;
+		}
+
+		.subheading-typing {
+			white-space: normal;
+			border-right: 0;
+			animation: none;
+			width: auto;
+			line-height: 1.1;
+			text-wrap: balance;
+		}
+	}
+
+	@media (max-width: 380px) {
+		h1 {
+			font-size: 1.95rem;
+			letter-spacing: -0.03em;
+		}
+
+		h2 {
+			font-size: 1rem;
+		}
+
+		p {
+			font-size: 0.95rem;
 		}
 	}
 </style>

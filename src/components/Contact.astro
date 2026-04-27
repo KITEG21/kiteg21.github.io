@@ -1,5 +1,16 @@
 ---
-// Contact section component
+interface Props {
+	contact: {
+		title1: string;
+		title2: string;
+		subtitle: string;
+		statusPrefix: string;
+		statusHighlight: string;
+		statusSuffix: string;
+	};
+}
+
+const { contact } = Astro.props;
 ---
 
 <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 bg-dark-bg border-t border-border">
@@ -7,11 +18,11 @@
 		<!-- Section header -->
 		<div class="space-y-4 animate-slide-up">
 			<h2 class="text-4xl sm:text-5xl font-black">
-				Let's
-				<span class="text-accent"> Build</span>
+				{contact.title1}
+				<span class="text-accent"> {contact.title2}</span>
 			</h2>
 			<p class="text-text-secondary text-lg max-w-2xl mx-auto">
-				Whether you're exploring backend infrastructure, scaling challenges, or just want to chat about distributed systems—let's connect.
+				{contact.subtitle}
 			</p>
 		</div>
 
@@ -54,7 +65,7 @@
 		<!-- Status message -->
 		<div class="pt-8 border-t border-border/30">
 			<p class="text-text-secondary text-sm font-mono">
-				Currently <span class="text-green-400">available</span> for consulting & full-time roles
+				{contact.statusPrefix} <span class="text-green-400">{contact.statusHighlight}</span> {contact.statusSuffix}
 			</p>
 		</div>
 	</div>
