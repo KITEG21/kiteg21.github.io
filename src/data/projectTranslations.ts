@@ -109,6 +109,38 @@ const projectTranslations: Record<'es' | 'it', Record<string, LocalizedProjectFi
 				'Acoplamiento frontend/backend vs SOA para iterar más rápido en MVP',
 			],
 		},
+		tinkerSet: {
+			description:
+				'App escritorio/web para buscar y organizar archivos mediante reglas configurables y asistencia de LLMs. UI en React+Tauri con backend FastAPI para gestión y ejecución de acciones.',
+			overview:
+				'Monorepo que combina una interfaz de usuario en React (con estado gestionado por Zustand) empacada para escritorio con Tauri y un backend en Python (FastAPI). Permite definir "jobs" JSON que se pueden previsualizar o ejecutar sobre el sistema de ficheros, y ofrece interpretación de prompts naturales vía múltiples proveedores LLM. Dispone de CLI, rutas HTTP, y motores modulares de filtros y acciones.',
+			architectureNotes:
+				'Estructura de carpetas: frontend contiene la UI (React + TypeScript + Vite) y el wrapper Tauri (src-tauri/). app aloja el backend FastAPI con services/ (llm_service, processor, action_engine, filter_engine), models/ (Job), y cli.py. La app expone endpoints (p.ej. /preview, /execute, /ai/interpret) a los que la UI o el CLI pueden llamar; Tauri ofrece integración IPC para el ejecutable de escritorio. Configuración centralizada en config.py que carga .env. LLM integrations soportan groq, ollama y openai y están encapsuladas en services/llm_service.py.',
+			decisions: [
+				'Monorepo para mantener frontend (Tauri) y backend (FastAPI) juntos y facilitar pruebas locales',
+				'Tauri + React para ofrecer experiencia de escritorio y desarrollo web con la misma base de código',
+				'FastAPI + Pydantic para validación y endpoints HTTP rápidos y tipados',
+				'Arquitectura basada en servicios (services/) para separar llm_service, processor, action_engine y filter_engine',
+				'CLI (cli.py) para workflows offline y pruebas reproducibles',
+				'Centralizar carga de .env en config.py para consistencia en entorno',
+				'Tipado reforzado en frontend (evitar any, usar unknown y helper de errores) para mayor seguridad',
+				'Estándar de nombres consistente para proveedores LLM',
+			],
+			challenges: [
+				'Gestión de secretos en .env (riesgo de exponer API keys si se comite) — requiere políticas y CI secrets',
+				'Tauri añade complejidad de build multiplataforma (Rust toolchain y dependencias nativas en Windows)',
+				'Probar integraciones LLM puede requerir claves externas o sistemas de emulación para CI',
+				'Sin base de datos persistente en el core: operaciones sobre ficheros y jobs en memoria/JSON requieren cuidado para concurrencia y recuperación',
+				'Dependencias dev (Black, Ruff, pre-commit, pytest) incrementan la huella local y complican reproducibilidad sin CI',
+			],
+			tradeoffs: [
+				'Monorepo facilita sincronía entre UI y backend pero puede aumentar tamaño del repositorio',
+				'Tauri ofrece APIs nativas y empaquetado desktop a costa de builds más complejos y dependencias nativas',
+				'Soportar múltiples proveedores LLM incrementa flexibilidad pero añade complejidad en el código y en la gestión de credenciales',
+				'No usar una DB relacional simplifica el diseño inicial pero limita auditoría/rollback y facilita inconsistencias si hay fallos en ejecución',
+				'Reescribir errores en frontend para usar unknown y helper mejora seguridad de tipos pero requiere cambios extensivos en componentes existentes',
+			],
+		},
 	},
 	it: {
 		renta: {
@@ -201,6 +233,38 @@ const projectTranslations: Record<'es' | 'it', Record<string, LocalizedProjectFi
 				'Repository generici (DRY) vs query specifiche',
 				'JWT stateless vs session management tradizionale',
 				'Coupling frontend/backend vs SOA per iterare più veloce in MVP',
+			],
+		},
+		tinkerSet: {
+			description:
+				'Applicazione desktop/web per esplorare e organizzare file tramite regole configurabili e assistenza LLM. UI React+Tauri con backend FastAPI per elaborazione ed esecuzione azioni.',
+			overview:
+				'Monorepo che combina un\'interfaccia utente React (con stato gestito da Zustand) pacchettizzata per desktop con Tauri e backend Python (FastAPI). Consente di definire "job" JSON che possono essere visualizzati in anteprima o eseguiti sul file system, e offre interpretazione di prompt naturali tramite più provider LLM. Include CLI, rotte HTTP e motori modulari di filtri e azioni.',
+			architectureNotes:
+				'Struttura cartelle: frontend contiene l\'UI (React + TypeScript + Vite) e wrapper Tauri (src-tauri/). app ospita backend FastAPI con services/ (llm_service, processor, action_engine, filter_engine), models/ (Job) e cli.py. L\'app espone endpoint (ad es. /preview, /execute, /ai/interpret) che UI o CLI possono chiamare; Tauri fornisce integrazione IPC per l\'eseguibile desktop. Configurazione centralizzata in config.py che carica .env. Integrazioni LLM supportano groq, ollama e openai ed sono incapsulate in services/llm_service.py.',
+			decisions: [
+				'Monorepo per mantenere frontend (Tauri) e backend (FastAPI) insieme e facilitare test locali',
+				'Tauri + React per offrire esperienza desktop e sviluppo web con la stessa base di codice',
+				'FastAPI + Pydantic per validazione ed endpoint HTTP veloci e tipizzati',
+				'Architettura basata su servizi (services/) per separare llm_service, processor, action_engine e filter_engine',
+				'CLI (cli.py) per workflow offline e test riproducibili',
+				'Centralizzare caricamento .env in config.py per coerenza ambiente',
+				'Tipizzazione rafforzata in frontend (evitare any, usare unknown e helper errori) per sicurezza maggiore',
+				'Standard di denominazione coerente per provider LLM',
+			],
+			challenges: [
+				'Gestione segreti in .env (rischio di esporre API key se commessi) — richiede policy e CI secrets',
+				'Tauri aggiunge complessità build multipiattaforma (Rust toolchain e dipendenze native su Windows)',
+				'Test integrazioni LLM può richiedere chiavi esterne o sistemi emulazione per CI',
+				'Senza database persistente nel core: operazioni file system e job in memoria/JSON richiedono attenzione per concorrenza e recupero',
+				'Dipendenze dev (Black, Ruff, pre-commit, pytest) aumentano impronta locale e complicano riproducibilità senza CI',
+			],
+			tradeoffs: [
+				'Monorepo facilita sincronizzazione UI-backend ma può aumentare dimensione repository',
+				'Tauri offre API native e packaging desktop al costo di build più complessi e dipendenze native',
+				'Supportare più provider LLM aumenta flessibilità ma aggiunge complessità codice e gestione credenziali',
+				'Non usare DB relazionale semplifica design iniziale ma limita audit trail/rollback e agevola inconsistenze se esecuzione fallisce',
+				'Riscrivere errori frontend per usare unknown e helper migliora sicurezza tipi ma richiede cambiamenti estensivi componenti',
 			],
 		},
 	},

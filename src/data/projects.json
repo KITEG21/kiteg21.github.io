@@ -152,6 +152,60 @@
         ]
       }
 
+    },
+    {
+      "slug": "tinkerSet",
+      "name": "TinkerSet",
+      "status": "ACTIVE",
+      "description": "Desktop/web application for exploring and organizing files through configurable rules and LLM assistance. React+Tauri UI with FastAPI backend for processing and action execution.",
+      "techStack": ["Python", "FastAPI", "TypeScript", "React", "Zustand", "Tauri", "Rust", "Pydantic"],
+      "github": "https://github.com/KITEG21/TinkerSet",
+      "demo": "",
+      "icon": "",
+      "overview": "Monorepo combining a React UI (with state managed by Zustand) packaged for desktop with Tauri and a Python FastAPI backend. Allows defining JSON 'jobs' that can be previewed or executed on the file system, and offers natural language prompt interpretation via multiple LLM providers. Includes CLI, HTTP routes, and modular filter and action engines.",
+      "architectureNotes": "Folder structure: frontend contains the UI (React + TypeScript + Vite) and Tauri wrapper (src-tauri/). app hosts the FastAPI backend with services/ (llm_service, processor, action_engine, filter_engine), models/ (Job), and cli.py. The app exposes endpoints (e.g. /preview, /execute, /ai/interpret) that the UI or CLI can call; Tauri provides IPC integration for the desktop executable. Centralized configuration in config.py that loads .env. LLM integrations support groq, ollama and openai and are encapsulated in services/llm_service.py.",
+      "decisions": [
+        "Monorepo to keep frontend (Tauri) and backend (FastAPI) together and facilitate local testing",
+        "Tauri + React to offer desktop experience and web development with the same codebase",
+        "FastAPI + Pydantic for validation and fast, typed HTTP endpoints",
+        "Service-based architecture (services/) to separate llm_service, processor, action_engine and filter_engine",
+        "CLI (cli.py) for offline workflows and reproducible tests",
+        "Centralize .env loading in config.py for consistency across environments",
+        "Enforce typing in frontend (avoid any, use unknown and error helper) for greater safety",
+        "Consistent naming standard for LLM providers"
+      ],
+      "challenges": [
+        "Secret management in .env (risk of exposing API keys if committed) — requires policies and CI secrets",
+        "Tauri adds multi-platform build complexity (Rust toolchain and native dependencies on Windows)",
+        "Testing LLM integrations may require external keys or emulation systems for CI",
+        "No persistent database in core: in-memory/JSON file operations and jobs require care for concurrency and recovery",
+        "Development dependencies (Black, Ruff, pre-commit, pytest) increase local footprint and complicate reproducibility without CI"
+      ],
+      "tradeoffs": [
+        "Monorepo facilitates UI-backend sync but can increase repository size",
+        "Tauri offers native APIs and desktop packaging at the cost of more complex builds and native dependencies",
+        "Supporting multiple LLM providers increases flexibility but adds code complexity and credential management overhead",
+        "No relational database simplifies initial design but limits audit trails/rollback and makes consistency harder if execution fails",
+        "Rewriting frontend errors to use unknown and error helper improves type safety but requires extensive component changes"
+      ],
+      "diagram": {
+        "components": [
+          { "id": "ui_web", "name": "Frontend", "x": 40, "y": 40 },
+          { "id": "tauri_shell", "name": "Tauri", "x": 220, "y": 40 },
+          { "id": "backend_api", "name": "Backend (FastAPI)", "x": 400, "y": 40 },
+          { "id": "services", "name": "Services", "x": 580, "y": 40 },
+          { "id": "llm_providers", "name": "LLM Providers", "x": 760, "y": 0 },
+          { "id": "local_fs", "name": "Local File System", "x": 880, "y": 90 }
+        ],
+        "edges": [
+          { "from": "ui_web", "to": "backend_api" },
+          { "from": "backend_api", "to": "services" },
+          { "from": "services", "to": "llm_providers" },
+          { "from": "services", "to": "local_fs" },
+          { "from": "ui_web", "to": "tauri_shell" },
+          { "from": "llm_providers", "to": "local_fs" }
+        ]
+      }
     }
 
   ]
