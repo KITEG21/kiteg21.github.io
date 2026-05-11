@@ -8,11 +8,13 @@ export interface Props {
 	github?: string;
 	demo?: string;
 	icon?: string;
+	detailHref?: string;
+	detailLabel?: string;
 	repoLabel?: string;
 	demoLabel?: string;
 }
 
-const { name, status, description, techStack, github, demo, icon, repoLabel = 'GitHub', demoLabel = 'Demo' } = Astro.props;
+const { name, status, description, techStack, github, demo, icon, detailHref, detailLabel = 'Details', repoLabel = 'GitHub', demoLabel = 'Demo' } = Astro.props;
 
 const statusColors: Record<string, string> = {
 	ACTIVE: 'bg-green-500/10 border-green-500/30 text-green-400',
@@ -22,8 +24,8 @@ const statusColors: Record<string, string> = {
 };
 ---
 
-<div
-	class="group relative p-6 sm:p-8 border border-border rounded-lg hover:border-accent/50 transition-all duration-350 hover:shadow-lg hover:shadow-accent/10 bg-dark-bg/50 backdrop-blur-sm hover:bg-dark-bg/80 cursor-pointer"
+<article
+	class="group relative p-6 sm:p-8 border border-border rounded-lg hover:border-accent/50 transition-all duration-350 hover:shadow-lg hover:shadow-accent/10 bg-dark-bg/50 backdrop-blur-sm hover:bg-dark-bg/80"
 >
 	<!-- Accent line on hover -->
 	<div
@@ -62,12 +64,24 @@ const statusColors: Record<string, string> = {
 	<!-- Links -->
 	<div class="flex gap-3 pt-4 border-t border-border/50">
 		{
+			detailHref && (
+				<a
+					href={detailHref}
+					class="text-accent text-sm font-mono hover:text-accent-hover transition-colors duration-250 hover:underline"
+					aria-label={`${detailLabel}: ${name}`}
+				>
+					{detailLabel} →
+				</a>
+			)
+		}
+		{
 			github && (
 				<a
 					href={github}
 					target="_blank"
 					rel="noopener noreferrer"
 					class="text-text-secondary text-sm font-mono hover:text-accent transition-colors duration-250 hover:underline"
+					aria-label={`${repoLabel}: ${name} (opens in a new tab)`}
 				>
 					{repoLabel} →
 				</a>
@@ -80,10 +94,11 @@ const statusColors: Record<string, string> = {
 					target="_blank"
 					rel="noopener noreferrer"
 					class="text-text-secondary text-sm font-mono hover:text-accent transition-colors duration-250 hover:underline"
+					aria-label={`${demoLabel}: ${name} (opens in a new tab)`}
 				>
 					{demoLabel} →
 				</a>
 			)
 		}
 	</div>
-</div>
+</article>

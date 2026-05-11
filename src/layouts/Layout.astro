@@ -41,6 +41,8 @@ const itPath = withLocalePath(pathWithoutLocale, 'it');
 		<meta name="robots" content="index, follow" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/x-icon" href="/icon.ico" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<title>{title}</title>
 		<meta property="og:type" content="website" />
 		<meta property="og:title" content={title} />
@@ -61,13 +63,13 @@ const itPath = withLocalePath(pathWithoutLocale, 'it');
 		<!-- Minimal navbar -->
 		<nav class="fixed top-0 w-full z-50 bg-dark-bg/80 backdrop-blur-sm border-b border-border">
 			<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-				<a href={basePath} class="text-lg font-bold hover:text-accent transition-colors">
+				<a href={basePath} class="text-lg font-bold hover:text-accent transition-colors" aria-label="Home">
 					&lt; /web &gt;
 				</a>
 				<div class="flex gap-2 text-xs font-mono sm:hidden">
-					<a href={enPath} class={`px-2 py-1 rounded border ${locale === 'en' ? 'text-accent border-accent/50' : 'text-text-secondary border-border'}`}>EN</a>
-					<a href={esPath} class={`px-2 py-1 rounded border ${locale === 'es' ? 'text-accent border-accent/50' : 'text-text-secondary border-border'}`}>ES</a>
-					<a href={itPath} class={`px-2 py-1 rounded border ${locale === 'it' ? 'text-accent border-accent/50' : 'text-text-secondary border-border'}`}>IT</a>
+					<a href={enPath} aria-label="Switch to English" class={`min-h-10 min-w-10 px-3 py-2 rounded border inline-flex items-center justify-center ${locale === 'en' ? 'text-accent border-accent/50' : 'text-text-secondary border-border'}`}>EN</a>
+					<a href={esPath} aria-label="Cambiar a español" class={`min-h-10 min-w-10 px-3 py-2 rounded border inline-flex items-center justify-center ${locale === 'es' ? 'text-accent border-accent/50' : 'text-text-secondary border-border'}`}>ES</a>
+					<a href={itPath} aria-label="Passa all'italiano" class={`min-h-10 min-w-10 px-3 py-2 rounded border inline-flex items-center justify-center ${locale === 'it' ? 'text-accent border-accent/50' : 'text-text-secondary border-border'}`}>IT</a>
 				</div>
 				<div class="hidden sm:flex gap-6 text-sm items-center">
 					<a href={`${basePath}#projects`} class="hover:text-accent transition-colors">{copy.nav.projects}</a>

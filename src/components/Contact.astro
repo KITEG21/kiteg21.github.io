@@ -32,7 +32,8 @@ const { contact } = Astro.props;
 			<div class="group">
 				<a
 					href="mailto:gabriel.rodriguezest@gmail.com"
-					class="inline-block text-lg sm:text-xl font-mono text-accent hover:text-accent-hover transition-colors duration-250 relative"
+					aria-label="Send an email to gabriel.rodriguezest@gmail.com"
+					class="inline-flex min-h-11 items-center text-lg sm:text-xl font-mono text-accent hover:text-accent-hover transition-colors duration-250 relative"
 				>
 					gabriel.rodriguezest@gmail.com
 					<span class="absolute bottom-0 left-0 w-0 h-1 bg-accent group-hover:w-full transition-all duration-300"></span>
@@ -45,7 +46,8 @@ const { contact } = Astro.props;
 					href="https://github.com/KITEG21"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="text-text-secondary hover:text-accent transition-colors duration-250 font-mono text-sm flex items-center justify-center gap-2"
+					aria-label="Open GitHub profile in a new tab"
+					class="text-text-secondary hover:text-accent transition-colors duration-250 font-mono text-sm inline-flex min-h-11 items-center justify-center gap-2 px-2"
 				>
 					<span>GitHub</span>
 					<span>→</span>
@@ -54,7 +56,8 @@ const { contact } = Astro.props;
 					href="https://www.linkedin.com/in/gabriel-esteban-rd/"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="text-text-secondary hover:text-accent transition-colors duration-250 font-mono text-sm flex items-center justify-center gap-2"
+					aria-label="Open LinkedIn profile in a new tab"
+					class="text-text-secondary hover:text-accent transition-colors duration-250 font-mono text-sm inline-flex min-h-11 items-center justify-center gap-2 px-2"
 				>
 					<span>LinkedIn</span>
 					<span>→</span>

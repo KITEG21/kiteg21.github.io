@@ -27,7 +27,7 @@ const { hero } = Astro.props;
 			<span class="interactive-text text-accent inline-block animate-float">{hero.title2}</span>
 		</h1>
 		<h2 class="text-lg sm:text-2xl lg:text-3xl font-black font-sans tracking-tight leading-tight px-2 sm:px-0">
-			<span class="subheading-typing">{hero.name}</span>
+			<span class="subheading-typing">{hero.name} ;</span>
 		</h2>
 
 		<!-- Subheading -->
@@ -63,7 +63,7 @@ const { hero } = Astro.props;
 
 <style>
 	.interactive-text {
-		transition: color 250ms ease, transform 250ms ease, text-shadow 250ms ease;
+		transition: color 250ms ease, transform 250ms ease;
 		cursor: pointer;
 	}
 
@@ -71,7 +71,6 @@ const { hero } = Astro.props;
 	.interactive-text:focus-visible {
 		color: #38BDF8; /* sky-400 accent for interaction */
 		transform: translateY(-3px) scale(1.02);
-		text-shadow: 0 0 14px rgba(56, 189, 248, 0.45);
 	}
 
 	.interactive-text:active {
@@ -88,7 +87,7 @@ const { hero } = Astro.props;
 		animation: float-text 4s ease-in-out infinite;
 	}
 
-	@keyframes typing {
+		@keyframes typing {
 		from { width: 0; }
 		to { width: 100%; }
 	}
@@ -113,10 +112,6 @@ const { hero } = Astro.props;
 		}
 
 		.subheading-typing {
-			white-space: normal;
-			border-right: 0;
-			animation: none;
-			width: auto;
 			line-height: 1.1;
 			text-wrap: balance;
 		}

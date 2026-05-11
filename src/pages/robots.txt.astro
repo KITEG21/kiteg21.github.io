@@ -1,11 +1,11 @@
 ---
 export const prerender = true;
 
-const site = Astro.site ?? 'https://gabrielrd.me';
+const site = Astro.site ?? new URL('https://gabrielrd.me');
+const sitemapUrl = new URL('/sitemap.xml', site).href;
 const content = `User-agent: *
 Allow: /
-Host: ${site}
-Sitemap: ${site}/sitemap.xml
+Sitemap: ${sitemapUrl}
 `;
 Astro.response.headers.set('content-type', 'text/plain; charset=utf-8');
 ---

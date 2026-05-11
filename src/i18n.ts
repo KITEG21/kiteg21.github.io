@@ -26,6 +26,7 @@ export const copy = {
 			subtitle:
 				'A selection of systems I\'ve engineered. Each represents deep focus on scalability, reliability, and architectural clarity.',
 			cta: 'View all projects →',
+			detailsLabel: 'Project details',
 			repoLabel: 'GitHub',
 			demoLabel: 'Demo',
 		},
@@ -89,6 +90,7 @@ export const copy = {
 			subtitle:
 				'Una selección de sistemas que he diseñado. Cada uno refleja enfoque en escalabilidad, confiabilidad y claridad arquitectónica.',
 			cta: 'Ver todos los proyectos →',
+			detailsLabel: 'Detalles del proyecto',
 			repoLabel: 'GitHub',
 			demoLabel: 'Demo',
 		},
@@ -152,6 +154,7 @@ export const copy = {
 			subtitle:
 				'Una selezione di sistemi che ho realizzato. Ogni progetto riflette attenzione a scalabilità, affidabilità e chiarezza architettonica.',
 			cta: 'Vedi tutti i progetti →',
+			detailsLabel: 'Dettagli del progetto',
 			repoLabel: 'GitHub',
 			demoLabel: 'Demo',
 		},
