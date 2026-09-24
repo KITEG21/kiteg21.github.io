@@ -1,0 +1,422 @@
+---
+import type { Locale } from '../i18n';
+
+interface Props {
+	nav: { projects: string; about: string; contact: string; cv: string };
+	basePath: string;
+	locale: Locale;
+	enPath: string;
+	esPath: string;
+	itPath: string;
+}
+const { nav, basePath, locale, enPath, esPath, itPath } = Astro.props;
+---
+
+<nav id="sao-nav" aria-label="Floating navigation" class="fixed left-5 top-28 z-40 select-none">
+
+	<!-- Toggle row: main button + restore button -->
+	<div class="flex items-center gap-2">
+		<button
+			id="sao-toggle"
+			aria-expanded="false"
+			aria-haspopup="true"
+			aria-label="Toggle navigation menu"
+			class="relative w-9 h-9 rounded-full flex items-center justify-center"
+		>
+			<span id="sao-pulse" class="absolute inset-0 rounded-full border border-accent/40"></span>
+			<div id="sao-icon-dots" class="flex flex-col items-center gap-[4px]">
+				<span class="block w-[4px] h-[4px] rounded-full bg-white/90"></span>
+				<span class="block w-[4px] h-[4px] rounded-full bg-white/90"></span>
+				<span class="block w-[4px] h-[4px] rounded-full bg-white/90"></span>
+			</div>
+			<svg id="sao-icon-x" class="absolute w-[15px] h-[15px] text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
+			</svg>
+		</button>
+
+		<!-- Restore top nav — appears only in floating mode -->
+		<button
+			id="sao-restore"
+			aria-label="Restore navigation bar"
+			title="Restore navigation bar"
+			class="w-7 h-7 rounded-full flex items-center justify-center"
+		>
+			<svg class="w-[13px] h-[13px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+			</svg>
+		</button>
+	</div>
+
+	<!-- Items -->
+	<ul id="sao-items" role="menu" aria-hidden="true" class="mt-2.5 flex flex-col gap-2.5 list-none p-0 m-0">
+
+		<li role="none" style="--i:0" class="sao-item-wrap">
+			<a href={`${basePath}#projects`} role="menuitem" tabindex="-1" class="sao-item flex items-center gap-3 no-underline group">
+				<div class="sao-circle w-11 h-11 rounded-full flex-shrink-0 flex items-center justify-center">
+					<svg class="w-[17px] h-[17px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+					</svg>
+				</div>
+				<span class="sao-label font-mono text-[11px] tracking-widest uppercase px-3 py-1.5 rounded whitespace-nowrap">{nav.projects}</span>
+			</a>
+		</li>
+
+		<li role="none" style="--i:1" class="sao-item-wrap">
+			<a href={`${basePath}#about`} role="menuitem" tabindex="-1" class="sao-item flex items-center gap-3 no-underline group">
+				<div class="sao-circle w-11 h-11 rounded-full flex-shrink-0 flex items-center justify-center">
+					<svg class="w-[17px] h-[17px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+					</svg>
+				</div>
+				<span class="sao-label font-mono text-[11px] tracking-widest uppercase px-3 py-1.5 rounded whitespace-nowrap">{nav.about}</span>
+			</a>
+		</li>
+
+		<li role="none" style="--i:2" class="sao-item-wrap">
+			<a href={`${basePath}#contact`} role="menuitem" tabindex="-1" class="sao-item flex items-center gap-3 no-underline group">
+				<div class="sao-circle w-11 h-11 rounded-full flex-shrink-0 flex items-center justify-center">
+					<svg class="w-[17px] h-[17px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+					</svg>
+				</div>
+				<span class="sao-label font-mono text-[11px] tracking-widest uppercase px-3 py-1.5 rounded whitespace-nowrap">{nav.contact}</span>
+			</a>
+		</li>
+
+		<li role="none" style="--i:3" class="sao-item-wrap">
+			<a href="/cv" role="menuitem" tabindex="-1" class="sao-item flex items-center gap-3 no-underline group">
+				<div class="sao-circle w-11 h-11 rounded-full flex-shrink-0 flex items-center justify-center">
+					<svg class="w-[17px] h-[17px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+					</svg>
+				</div>
+				<span class="sao-label font-mono text-[11px] tracking-widest uppercase px-3 py-1.5 rounded whitespace-nowrap">CV</span>
+			</a>
+		</li>
+
+		<!-- Language switcher -->
+		<li role="none" style="--i:4" class="sao-item-wrap">
+			<div class="flex items-center gap-3">
+				<div class="sao-circle w-11 h-11 rounded-full flex-shrink-0 flex items-center justify-center">
+					<svg class="w-[17px] h-[17px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+						<circle cx="12" cy="12" r="9" />
+						<line x1="3" y1="9" x2="21" y2="9" />
+						<line x1="3" y1="15" x2="21" y2="15" />
+						<ellipse cx="12" cy="12" rx="4.5" ry="9" />
+					</svg>
+				</div>
+				<div class="sao-label font-mono text-[11px] tracking-widest uppercase px-3 py-1.5 rounded flex items-center gap-2">
+					<a href={enPath} tabindex="-1" class={`lang-link ${locale === 'en' ? 'text-accent' : 'text-text-secondary'}`}>EN</a>
+					<span class="text-border select-none">·</span>
+					<a href={esPath} tabindex="-1" class={`lang-link ${locale === 'es' ? 'text-accent' : 'text-text-secondary'}`}>ES</a>
+					<span class="text-border select-none">·</span>
+					<a href={itPath} tabindex="-1" class={`lang-link ${locale === 'it' ? 'text-accent' : 'text-text-secondary'}`}>IT</a>
+				</div>
+			</div>
+		</li>
+
+	</ul>
+</nav>
+
+<style>
+	/* ── Nav container: hidden by default, shown in floating mode ── */
+	#sao-nav {
+		opacity: 0;
+		pointer-events: none;
+		transform: scale(0.75) translateX(-10px);
+		transition: opacity 300ms ease, transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+	}
+	:global(body.nav-floating) #sao-nav {
+		opacity: 1;
+		pointer-events: auto;
+		transform: scale(1) translateX(0);
+	}
+	:global(body.nav-floating-init) #sao-nav {
+		transition: none !important;
+	}
+
+	/* ── Toggle ──────────────────────────────────────────────── */
+	#sao-toggle {
+		background: rgba(79, 70, 229, 0.38);
+		border: 1px solid rgba(79, 70, 229, 0.35);
+		box-shadow: 0 0 12px rgba(79, 70, 229, 0.2);
+		cursor: grab;
+		transition: background 220ms ease, border-color 220ms ease, box-shadow 220ms ease, transform 150ms ease;
+	}
+	#sao-toggle:hover {
+		background: rgba(79, 70, 229, 0.72);
+		border-color: rgba(79, 70, 229, 0.65);
+		box-shadow: 0 0 20px rgba(79, 70, 229, 0.4);
+	}
+	#sao-nav.open #sao-toggle {
+		background: rgba(79, 70, 229, 1);
+		border-color: rgba(255, 255, 255, 0.12);
+		box-shadow: 0 0 28px rgba(79, 70, 229, 0.55);
+		cursor: grab;
+	}
+	#sao-nav.dragging #sao-toggle {
+		cursor: grabbing !important;
+		transform: scale(1.15);
+		background: rgba(79, 70, 229, 0.85);
+		box-shadow: 0 8px 28px rgba(79, 70, 229, 0.45);
+		transition: transform 120ms ease, box-shadow 120ms ease;
+	}
+
+	/* ── Restore button ──────────────────────────────────────── */
+	#sao-restore {
+		background: rgba(79, 70, 229, 0.18);
+		border: 1px solid rgba(79, 70, 229, 0.22);
+		color: rgba(255, 255, 255, 0.45);
+		opacity: 0;
+		pointer-events: none;
+		transform: scale(0.65) translateX(-6px);
+		transition:
+			opacity 300ms ease,
+			transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1),
+			background 180ms ease,
+			color 180ms ease;
+	}
+	:global(body.nav-floating) #sao-restore {
+		opacity: 1;
+		pointer-events: auto;
+		transform: scale(1) translateX(0);
+	}
+	#sao-restore:hover {
+		background: rgba(79, 70, 229, 0.45);
+		color: rgba(255, 255, 255, 0.9);
+		border-color: rgba(79, 70, 229, 0.5);
+	}
+
+	/* ── Pulse ring ──────────────────────────────────────────── */
+	#sao-pulse { animation: sao-ring 2.8s ease-out infinite; }
+	@keyframes sao-ring {
+		0%   { transform: scale(1);   opacity: 0.5; }
+		65%  { transform: scale(1.5); opacity: 0; }
+		100% { transform: scale(1.5); opacity: 0; }
+	}
+	#sao-nav.dragging #sao-pulse,
+	#sao-nav.open #sao-pulse { animation: none; opacity: 0; }
+
+	/* ── Icon swap ───────────────────────────────────────────── */
+	#sao-icon-dots, #sao-icon-x {
+		transition: opacity 200ms ease, transform 200ms ease;
+	}
+	#sao-icon-x { opacity: 0; transform: rotate(-45deg) scale(0.5); }
+	#sao-nav.open #sao-icon-dots { opacity: 0; transform: rotate(45deg) scale(0.5); }
+	#sao-nav.open #sao-icon-x    { opacity: 1; transform: rotate(0deg) scale(1); }
+
+	/* ── Items ───────────────────────────────────────────────── */
+	.sao-item-wrap {
+		opacity: 0;
+		transform: translateY(-14px) scale(0.92);
+		pointer-events: none;
+	}
+	#sao-nav.open .sao-item-wrap {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+		pointer-events: auto;
+		transition:
+			opacity 300ms ease calc(var(--i) * 65ms),
+			transform 380ms cubic-bezier(0.34, 1.56, 0.64, 1) calc(var(--i) * 65ms);
+	}
+	#sao-nav.closing .sao-item-wrap {
+		opacity: 0;
+		transform: translateY(-14px) scale(0.92);
+		pointer-events: none;
+		transition:
+			opacity 180ms ease calc((4 - var(--i)) * 35ms),
+			transform 180ms ease calc((4 - var(--i)) * 35ms);
+	}
+	#sao-nav.dragging .sao-item-wrap {
+		opacity: 0 !important;
+		pointer-events: none !important;
+		transition: none !important;
+	}
+
+	/* ── Circle ──────────────────────────────────────────────── */
+	.sao-circle {
+		background: rgba(11, 11, 12, 0.96);
+		border: 1px solid #262629;
+		backdrop-filter: blur(14px);
+		-webkit-backdrop-filter: blur(14px);
+		color: #a1a1a6;
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+		transition: color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+	}
+	.sao-item:hover .sao-circle,
+	.sao-item:focus-visible .sao-circle {
+		color: #4f46e5;
+		border-color: rgba(79, 70, 229, 0.55);
+		box-shadow: 0 4px 24px rgba(79, 70, 229, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+	}
+
+	/* ── Label ───────────────────────────────────────────────── */
+	.sao-label {
+		background: rgba(11, 11, 12, 0.96);
+		border: 1px solid #262629;
+		backdrop-filter: blur(14px);
+		-webkit-backdrop-filter: blur(14px);
+		color: #a1a1a6;
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+		transition: color 180ms ease, border-color 180ms ease;
+	}
+	.sao-item:hover .sao-label,
+	.sao-item:focus-visible .sao-label {
+		color: #4f46e5;
+		border-color: rgba(79, 70, 229, 0.55);
+	}
+
+	/* ── Language links ──────────────────────────────────────── */
+	.lang-link:hover { color: #4f46e5 !important; }
+
+	/* ── Focus ring ──────────────────────────────────────────── */
+	#sao-toggle:focus-visible {
+		outline: 2px solid rgba(79, 70, 229, 0.8);
+		outline-offset: 3px;
+	}
+</style>
+
+<script>
+	const nav       = document.getElementById('sao-nav')!;
+	const toggle    = document.getElementById('sao-toggle')!;
+	const itemsList = document.getElementById('sao-items')!;
+	const menuItems = nav.querySelectorAll<HTMLElement>('[role="menuitem"], .lang-link');
+
+	// ── Floating mode ──────────────────────────────────────────────
+	const FLOAT_KEY = 'sao-nav-floating';
+
+	function setFloatingMode(on: boolean, animated = true) {
+		if (!animated) document.body.classList.add('nav-floating-init');
+		document.body.classList.toggle('nav-floating', on);
+		if (!animated) {
+			requestAnimationFrame(() =>
+				requestAnimationFrame(() =>
+					document.body.classList.remove('nav-floating-init')
+				)
+			);
+		}
+	}
+
+	// Apply saved preference on load (skip animation)
+	try {
+		if (localStorage.getItem(FLOAT_KEY) === '1') setFloatingMode(true, false);
+	} catch {}
+
+	// Convert buttons in the top nav
+	document.querySelectorAll('.nav-to-float-btn').forEach((btn) => {
+		btn.addEventListener('click', () => {
+			btn.classList.add('converting');
+			setTimeout(() => btn.classList.remove('converting'), 550);
+			setFloatingMode(true);
+			try { localStorage.setItem(FLOAT_KEY, '1'); } catch {}
+		});
+	});
+
+	// Restore button
+	document.getElementById('sao-restore')!.addEventListener('click', () => {
+		setFloatingMode(false);
+		try { localStorage.removeItem(FLOAT_KEY); } catch {}
+	});
+
+	// ── Restore saved drag position ────────────────────────────────
+	const POS_KEY = 'sao-nav-pos';
+
+	function clampPos(x: number, y: number) {
+		const s = toggle.offsetWidth || 36;
+		return {
+			x: Math.max(8, Math.min(window.innerWidth  - s - 8, x)),
+			y: Math.max(8, Math.min(window.innerHeight - s - 8, y)),
+		};
+	}
+
+	try {
+		const saved = localStorage.getItem(POS_KEY);
+		if (saved) {
+			const { x, y } = JSON.parse(saved);
+			const c = clampPos(x, y);
+			nav.style.left = c.x + 'px';
+			nav.style.top  = c.y + 'px';
+		}
+	} catch {}
+
+	// ── Menu open / close ──────────────────────────────────────────
+	let isOpen = false;
+	let closeTimer: ReturnType<typeof setTimeout> | null = null;
+
+	function openMenu() {
+		if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
+		isOpen = true;
+		nav.classList.remove('closing');
+		nav.classList.add('open');
+		toggle.setAttribute('aria-expanded', 'true');
+		itemsList.setAttribute('aria-hidden', 'false');
+		menuItems.forEach((el) => el.setAttribute('tabindex', '0'));
+	}
+
+	function closeMenu() {
+		isOpen = false;
+		nav.classList.remove('open');
+		nav.classList.add('closing');
+		toggle.setAttribute('aria-expanded', 'false');
+		itemsList.setAttribute('aria-hidden', 'true');
+		menuItems.forEach((el) => el.setAttribute('tabindex', '-1'));
+		closeTimer = setTimeout(() => nav.classList.remove('closing'), 450);
+	}
+
+	// ── Drag ───────────────────────────────────────────────────────
+	let dragging = false, dragMoved = false;
+	let ptrStartX = 0, ptrStartY = 0, navStartX = 0, navStartY = 0;
+
+	toggle.addEventListener('pointerdown', (e) => {
+		if (e.pointerType === 'mouse' && e.button !== 0) return;
+		dragging = true; dragMoved = false;
+		ptrStartX = e.clientX; ptrStartY = e.clientY;
+		const r = nav.getBoundingClientRect();
+		navStartX = r.left; navStartY = r.top;
+		toggle.setPointerCapture(e.pointerId);
+	});
+
+	toggle.addEventListener('pointermove', (e) => {
+		if (!dragging) return;
+		const dx = e.clientX - ptrStartX;
+		const dy = e.clientY - ptrStartY;
+		if (!dragMoved && (Math.abs(dx) > 5 || Math.abs(dy) > 5)) {
+			dragMoved = true;
+			nav.classList.add('dragging');
+			if (isOpen) closeMenu();
+		}
+		if (!dragMoved) return;
+		e.preventDefault();
+		const { x, y } = clampPos(navStartX + dx, navStartY + dy);
+		nav.style.left = x + 'px';
+		nav.style.top  = y + 'px';
+	}, { passive: false });
+
+	toggle.addEventListener('pointerup', () => {
+		if (!dragging) return;
+		dragging = false;
+		nav.classList.remove('dragging');
+		if (dragMoved) {
+			const r = nav.getBoundingClientRect();
+			try { localStorage.setItem(POS_KEY, JSON.stringify({ x: r.left, y: r.top })); } catch {}
+		}
+	});
+
+	toggle.addEventListener('click', (e) => {
+		if (dragMoved) { dragMoved = false; return; }
+		e.stopPropagation();
+		isOpen ? closeMenu() : openMenu();
+	});
+
+	document.addEventListener('click', (e) => {
+		if (isOpen && !nav.contains(e.target as Node)) closeMenu();
+	});
+
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape' && isOpen) { closeMenu(); toggle.focus(); }
+	});
+
+	nav.querySelectorAll('[role="menuitem"]').forEach((item) =>
+		item.addEventListener('click', () => closeMenu())
+	);
+</script>
