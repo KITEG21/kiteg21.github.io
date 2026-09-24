@@ -1,0 +1,124 @@
+---
+// Dot grid — Vercel-style illumination.
+// Mouse glows nearby dots; click sends an expanding sonar ring.
+// No spring physics — dots are fixed, only brightness changes.
+---
+
+<canvas id="circuit-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
+
+<script>
+(function () {
+  const canvas = document.getElementById('circuit-canvas') as HTMLCanvasElement | null;
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  // ── Config ────────────────────────────────────────────────────────────────
+  const SPACING      = 26;    // grid spacing (px)
+  const DOT_R_BASE   = 1.0;   // resting radius
+  const DOT_R_MAX    = 2.6;   // fully-lit radius
+  const DOT_OP_BASE  = 0.13;  // resting opacity
+  const DOT_OP_MAX   = 0.92;  // fully-lit opacity
+  const MOUSE_R      = 150;   // mouse influence radius
+  const RIPPLE_SPEED = 480;   // ring px/s
+  const RIPPLE_W     = 58;    // ring width
+  const RIPPLE_DUR   = 1400;  // ms until ring fades
+
+  // ── Grid (fixed positions) ────────────────────────────────────────────────
+  interface Dot { x: number; y: number; }
+  let W = 0, H = 0;
+  let dots: Dot[] = [];
+
+  function buildGrid() {
+    dots = [];
+    const cols = Math.ceil(W / SPACING) + 2;
+    const rows = Math.ceil(H / SPACING) + 2;
+    const xOff = ((W % SPACING) + SPACING) / 2 - SPACING;
+    const yOff = ((H % SPACING) + SPACING) / 2 - SPACING;
+    for (let r = 0; r < rows; r++)
+      for (let c = 0; c < cols; c++)
+        dots.push({ x: xOff + c * SPACING, y: yOff + r * SPACING });
+  }
+
+  // ── Mouse ─────────────────────────────────────────────────────────────────
+  let mx = -9999, my = -9999;
+  const section = document.getElementById('home');
+
+  section?.addEventListener('mousemove', (e: MouseEvent) => {
+    const r = canvas!.getBoundingClientRect();
+    mx = e.clientX - r.left;
+    my = e.clientY - r.top;
+  }, { passive: true });
+
+  section?.addEventListener('mouseleave', () => { mx = -9999; my = -9999; }, { passive: true });
+
+  // ── Ripples ───────────────────────────────────────────────────────────────
+  interface Ripple { cx: number; cy: number; start: number; }
+  const ripples: Ripple[] = [];
+
+  section?.addEventListener('click', (e: MouseEvent) => {
+    const r = canvas!.getBoundingClientRect();
+    ripples.push({ cx: e.clientX - r.left, cy: e.clientY - r.top, start: performance.now() });
+  });
+
+  // ── Render ────────────────────────────────────────────────────────────────
+  function frame(now: number) {
+    ctx!.clearRect(0, 0, W, H);
+
+    for (let i = ripples.length - 1; i >= 0; i--) {
+      if (now - ripples[i].start > RIPPLE_DUR) ripples.splice(i, 1);
+    }
+
+    for (const dot of dots) {
+      // Radial vignette: brighter toward the center-top (where the text lives)
+      const vdx = (dot.x - W * 0.35) / (W * 0.7);
+      const vdy = (dot.y - H * 0.42) / (H * 0.7);
+      const vd = Math.sqrt(vdx * vdx + vdy * vdy);
+      const vignette = Math.max(0, 1 - vd * 0.75);
+
+      // Mouse glow
+      let glow = 0;
+      const md = Math.hypot(dot.x - mx, dot.y - my);
+      if (md < MOUSE_R) {
+        glow = (1 - md / MOUSE_R) ** 2;
+      }
+
+      // Ripple glow
+      for (const rip of ripples) {
+        const age  = (now - rip.start) / RIPPLE_DUR;
+        const ringR = (now - rip.start) / 1000 * RIPPLE_SPEED;
+        const dd   = Math.hypot(dot.x - rip.cx, dot.y - rip.cy);
+        const diff = Math.abs(dd - ringR);
+        if (diff < RIPPLE_W) {
+          const g = (1 - diff / RIPPLE_W) ** 1.5 * (1 - age) ** 0.7;
+          if (g > glow) glow = g;
+        }
+      }
+
+      const baseOp = DOT_OP_BASE * (0.35 + 0.65 * vignette);
+      const opacity = Math.min(DOT_OP_MAX, baseOp + glow * (DOT_OP_MAX - DOT_OP_BASE));
+      const radius  = DOT_R_BASE + glow * (DOT_R_MAX - DOT_R_BASE);
+
+      ctx!.beginPath();
+      ctx!.arc(dot.x, dot.y, radius, 0, Math.PI * 2);
+      ctx!.fillStyle = `rgba(255,255,255,${opacity.toFixed(3)})`;
+      ctx!.fill();
+    }
+
+    requestAnimationFrame(frame);
+  }
+
+  // ── Init / resize ─────────────────────────────────────────────────────────
+  function resize() {
+    const p = canvas!.parentElement;
+    if (!p) return;
+    W = canvas!.width  = p.offsetWidth;
+    H = canvas!.height = p.offsetHeight;
+    buildGrid();
+  }
+
+  resize();
+  requestAnimationFrame(frame);
+  window.addEventListener('resize', resize, { passive: true });
+})();
+</script>

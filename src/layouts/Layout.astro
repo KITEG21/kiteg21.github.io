@@ -12,6 +12,7 @@ interface Props {
 			projects: string;
 			about: string;
 			contact: string;
+			cv: string;
 		};
 		footer: string;
 	};
@@ -24,6 +25,7 @@ const {
 	locale = 'en',
 	copy,
 } = Astro.props;
+const currentYear = new Date().getFullYear();
 const siteUrl = Astro.site ?? '';
 const basePath = withLocalePath('/', locale);
 const pathWithoutLocale = Astro.url.pathname.replace(/^\/(es|it)(?=\/|$)/, '') || '/';
@@ -66,7 +68,8 @@ const itPath = withLocalePath(pathWithoutLocale, 'it');
 				<a href={basePath} class="text-lg font-bold hover:text-accent transition-colors" aria-label="Home">
 					&lt; /web &gt;
 				</a>
-				<div class="flex gap-2 text-xs font-mono sm:hidden">
+				<div class="flex gap-2 text-xs font-mono sm:hidden items-center">
+					<a href="/cv" class="min-h-10 px-3 py-2 rounded border inline-flex items-center justify-center text-text-secondary border-border hover:text-accent hover:border-accent/50 transition-colors">{copy.nav.cv}</a>
 					<a href={enPath} aria-label="Switch to English" class={`min-h-10 min-w-10 px-3 py-2 rounded border inline-flex items-center justify-center ${locale === 'en' ? 'text-accent border-accent/50' : 'text-text-secondary border-border'}`}>EN</a>
 					<a href={esPath} aria-label="Cambiar a español" class={`min-h-10 min-w-10 px-3 py-2 rounded border inline-flex items-center justify-center ${locale === 'es' ? 'text-accent border-accent/50' : 'text-text-secondary border-border'}`}>ES</a>
 					<a href={itPath} aria-label="Passa all'italiano" class={`min-h-10 min-w-10 px-3 py-2 rounded border inline-flex items-center justify-center ${locale === 'it' ? 'text-accent border-accent/50' : 'text-text-secondary border-border'}`}>IT</a>
@@ -75,6 +78,7 @@ const itPath = withLocalePath(pathWithoutLocale, 'it');
 					<a href={`${basePath}#projects`} class="hover:text-accent transition-colors">{copy.nav.projects}</a>
 					<a href={`${basePath}#about`} class="hover:text-accent transition-colors">{copy.nav.about}</a>
 					<a href={`${basePath}#contact`} class="hover:text-accent transition-colors">{copy.nav.contact}</a>
+					<a href="/cv" class="hover:text-accent transition-colors">{copy.nav.cv}</a>
 					<div class="flex gap-2 ml-2 text-xs font-mono">
 						<a href={enPath} class={locale === 'en' ? 'text-accent' : 'text-text-secondary'}>EN</a>
 						<a href={esPath} class={locale === 'es' ? 'text-accent' : 'text-text-secondary'}>ES</a>
@@ -92,7 +96,7 @@ const itPath = withLocalePath(pathWithoutLocale, 'it');
 		<!-- Footer -->
 		<footer class="py-12 border-t border-border mt-20 bg-dark-bg">
 			<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-				<p class="text-text-secondary text-sm text-center">{copy.footer}</p>
+				<p class="text-text-secondary text-sm text-center">© {currentYear} · {copy.footer}</p>
 			</div>
 		</footer>
 	</body>

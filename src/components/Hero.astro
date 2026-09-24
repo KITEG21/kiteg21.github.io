@@ -1,4 +1,6 @@
 ---
+import CircuitCanvas from './CircuitCanvas.astro';
+
 interface Props {
 	hero: {
 		title1: string;
@@ -15,61 +17,78 @@ interface Props {
 const { hero } = Astro.props;
 ---
 
-<section id="home" class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-16 sm:py-20 bg-dark-bg">
-	<div class="max-w-4xl mx-auto text-center space-y-6 sm:space-y-8 animate-fade-in">
+<section id="home" class="relative min-h-screen flex items-center px-4 sm:px-6 lg:px-8 py-20 sm:py-24 bg-dark-bg overflow-hidden">
+
+	<!-- Dot grid background -->
+	<CircuitCanvas />
+
+	<!-- Top vignette — pulls the eye down toward content -->
+	<div class="absolute inset-x-0 top-0 h-40 z-0 pointer-events-none" style="background: linear-gradient(to bottom, #0B0B0C 0%, transparent 100%);"></div>
+
+	<!-- Bottom vignette -->
+	<div class="absolute inset-x-0 bottom-0 h-56 z-0 pointer-events-none" style="background: linear-gradient(to top, #0B0B0C 0%, transparent 100%);"></div>
+
+	<!-- Accent glow — very soft, offset toward text -->
+	<div class="absolute inset-0 z-0 pointer-events-none" style="background: radial-gradient(ellipse 55% 45% at 35% 52%, rgba(79,70,229,0.055) 0%, transparent 70%);"></div>
+
+	<!-- Content -->
+	<div class="relative z-10 max-w-6xl mx-auto w-full animate-fade-in">
+		<div class="grid grid-cols-1 items-center">
+
+			<!-- Left: Text content -->
+			<div class="space-y-6 sm:space-y-8 text-center lg:text-left">
+
+				<h1 class="text-4xl sm:text-6xl lg:text-7xl font-black font-sans tracking-tight leading-[0.95] sm:leading-[0.9]">
+					<span class="interactive-text inline-block">{hero.title1}</span>
+					<br />
+					<span class="interactive-text text-accent inline-block animate-float">{hero.title2}</span>
+				</h1>
+
+				<h2 class="text-lg sm:text-2xl lg:text-3xl font-black font-sans tracking-tight leading-tight">
+					<span class="subheading-typing">{hero.name} ;</span>
+				</h2>
+
+				<p class="text-base sm:text-lg lg:text-xl text-text-secondary max-w-xl leading-relaxed mx-auto lg:mx-0">
+					{hero.subtitle1}
+					<br class="hidden sm:block" />
+					{hero.subtitle2}
+				</p>
+
+				<div class="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start pt-2">
+					<a
+						href="#projects"
+						class="px-6 py-3 bg-accent text-dark-bg font-semibold rounded hover:bg-accent-hover hover:text-white transition-all duration-250 hover:shadow-lg hover:shadow-accent/50 group"
+					>
+						{hero.primaryCta}
+						<span class="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
+					</a>
+					<a
+						href="#contact"
+						class="px-6 py-3 border border-text-secondary text-text-secondary rounded hover:border-accent hover:text-accent transition-all duration-250"
+					>
+						{hero.secondaryCta}
+					</a>
+				</div>
+
+				<div class="animate-pulse-subtle flex justify-center lg:justify-start">
+					<p class="text-xs text-text-secondary font-mono">{hero.scroll}</p>
+				</div>
+			</div>
 
 
-		<!-- Main heading -->
-		 
-		<h1 class="text-4xl sm:text-6xl lg:text-7xl font-black font-sans tracking-tight leading-[0.95] sm:leading-[0.9]">
-			<span class="interactive-text inline-block">{hero.title1}</span>
-			<br />
-			<span class="interactive-text text-accent inline-block animate-float">{hero.title2}</span>
-		</h1>
-		<h2 class="text-lg sm:text-2xl lg:text-3xl font-black font-sans tracking-tight leading-tight px-2 sm:px-0">
-			<span class="subheading-typing">{hero.name} ;</span>
-		</h2>
-
-		<!-- Subheading -->
-		<p class="text-base sm:text-lg lg:text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed px-2 sm:px-0">
-			{hero.subtitle1}
-			<br class="hidden sm:block" />
-			{hero.subtitle2}
-		</p>
-
-		<!-- CTA Buttons -->
-		<div class="flex flex-col sm:flex-row gap-4 items-center justify-center pt-4">
-			<a
-				href="#projects"
-				class="px-6 py-3 bg-accent text-dark-bg font-semibold rounded hover:bg-accent-hover hover:text-white transition-all duration-250 hover:shadow-lg hover:shadow-accent/50 group"
-			>
-				{hero.primaryCta}
-				<span class="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
-			</a>
-			<a
-				href="#contact"
-				class="px-6 py-3 border border-text-secondary text-text-secondary rounded hover:border-accent hover:text-accent transition-all duration-250"
-			>
-				{hero.secondaryCta}
-			</a>
-		</div>
-
-		<!-- Scroll indicator -->
-		<div class="pt-8 animate-pulse-subtle">
-			<p class="text-xs text-text-secondary font-mono">{hero.scroll}</p>
-		</div>
+</div>
 	</div>
 </section>
 
 <style>
 	.interactive-text {
 		transition: color 250ms ease, transform 250ms ease;
-		cursor: pointer;
+		cursor: default;
 	}
 
 	.interactive-text:hover,
 	.interactive-text:focus-visible {
-		color: #38BDF8; /* sky-400 accent for interaction */
+		color: #38BDF8;
 		transform: translateY(-3px) scale(1.02);
 	}
 
@@ -87,48 +106,33 @@ const { hero } = Astro.props;
 		animation: float-text 4s ease-in-out infinite;
 	}
 
-		@keyframes typing {
+	@keyframes typing {
 		from { width: 0; }
 		to { width: 100%; }
 	}
 
 	@keyframes blink {
-		0%, 100% { border-color: transparent; }
-		50% { border-color: #38BDF8; }
+		0%, 49% { border-color: #38BDF8; }
+		50%, 100% { border-color: transparent; }
 	}
 
 	.subheading-typing {
 		display: inline-block;
 		overflow: hidden;
 		white-space: nowrap;
-		border-right: 2px solid #38BDF8;
-		animation: typing 2.8s steps(36,end) 0.4s forwards, blink 0.75s step-end infinite;
+		border-right: 2px solid transparent;
+		animation: typing 2.8s steps(36, end) 0.4s forwards, blink 0.75s step-end 0.4s 4 forwards;
 		width: 0;
 	}
 
-	@media (max-width: 640px) {
-		h1 {
-			font-size: 2.25rem;
-		}
-
-		.subheading-typing {
-			line-height: 1.1;
-			text-wrap: balance;
-		}
+@media (max-width: 640px) {
+		h1 { font-size: 2.25rem; }
+		.subheading-typing { line-height: 1.1; }
 	}
 
 	@media (max-width: 380px) {
-		h1 {
-			font-size: 1.95rem;
-			letter-spacing: -0.03em;
-		}
-
-		h2 {
-			font-size: 1rem;
-		}
-
-		p {
-			font-size: 0.95rem;
-		}
+		h1 { font-size: 1.95rem; letter-spacing: -0.03em; }
+		h2 { font-size: 1rem; }
+		p { font-size: 0.95rem; }
 	}
 </style>

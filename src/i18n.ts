@@ -9,13 +9,14 @@ export const copy = {
 			projects: 'Projects',
 			about: 'About',
 			contact: 'Contact',
+			cv: 'CV',
 		},
 		hero: {
 			title1: 'Backend',
 			title2: 'Systems Engineer',
 			name: 'Gabriel Esteban Rodriguez Delgado',
 			subtitle1: 'I design systems that scale.',
-			subtitle2: 'Currently exploring AI infrastructure and backend optimization.',
+			subtitle2: 'Currently building at Horizon.gh and Crescendo Digital.',
 			primaryCta: 'View My Work',
 			secondaryCta: 'Get In Touch',
 			scroll: '↓ scroll',
@@ -34,9 +35,9 @@ export const copy = {
 			title1: 'About',
 			title2: 'Me',
 			paragraphs: [
-				'Im a Backend Engineer focused on building scalable, reliable systems with clean architecture and strong performance characteristics. I have hands-on experience developing production-grade APIs using .NET and PostgreSQL, where I have worked on optimizing queries, improving system efficiency, and implementing complex business logic. I enjoy creating products that satisfy clients—not just making something useful, but building applications that users genuinely love.',
-				'My work is driven by a deep interest in system design and backend architecture, with a focus on creating solutions that are not only useful but also scalable and easy to maintain. I am particularly interested in designing services that scale effectively while remaining maintainable.',
-				'Currently, I am expanding my skill set toward AI-powered applications, combining backend engineering with modern AI capabilities to build smarter systems. I enjoy learning by building, continuously refining my approach, and working on projects that push me to think like an engineer, not just a developer.',
+				'I\'m a Backend Software Engineer and Tech Lead with 5+ years building production systems in C#/.NET — from multi-tenant booking platforms to distributed microservices handling contracts, payments, and reservations at scale. I\'ve progressed from individual contributor to leading engineering teams, taking ownership of architecture decisions, service design, and end-to-end backend delivery.',
+				'Currently I co-found and lead the technical direction of Horizon.gh, where I design and build products like ZitaSmart (a multi-tenant SaaS booking platform) alongside specialized ERP and yacht management systems. I also build AI-powered backend automation at Crescendo Digital, integrating LLM workflows into omnichannel customer systems across Facebook, Instagram, SMS, and WhatsApp.',
+				'My work is driven by a deep interest in system design — distributed workflows, event-driven patterns, performance bottlenecks, and translating complex business requirements into clean, maintainable code. I enjoy building things that users genuinely love and engineers are proud to work on.',
 			],
 			stats: {
 				years: 'Years Building',
@@ -45,6 +46,7 @@ export const copy = {
 				learn: 'To Learn',
 			},
 			skillsTitle: 'Core Focus Areas',
+			downloadCv: 'Download CV',
 		},
 		contact: {
 			title1: "Let's",
@@ -66,20 +68,21 @@ export const copy = {
 			demo: 'Live Demo →',
 			diagramComing: 'Diagram coming soon.',
 		},
-		footer: '© 2025. Engineered with purpose.',
+		footer: 'Engineered with purpose.',
 	},
 	es: {
 		nav: {
 			projects: 'Proyectos',
 			about: 'Sobre mí',
 			contact: 'Contacto',
+			cv: 'CV',
 		},
 		hero: {
 			title1: 'Ingeniero de',
 			title2: 'Sistemas Backend',
 			name: 'Gabriel Esteban Rodriguez Delgado',
 			subtitle1: 'Diseño sistemas que escalan.',
-			subtitle2: 'Actualmente explorando infraestructura de IA y optimización backend.',
+			subtitle2: 'Actualmente construyendo en Horizon.gh y Crescendo Digital.',
 			primaryCta: 'Ver mi trabajo',
 			secondaryCta: 'Contactar',
 			scroll: '↓ desplazar',
@@ -98,9 +101,9 @@ export const copy = {
 			title1: 'Sobre',
 			title2: 'mí',
 			paragraphs: [
-				'Soy un Backend Engineer enfocado en construir sistemas escalables y confiables con arquitectura limpia y buen rendimiento. Tengo experiencia práctica desarrollando APIs de producción usando .NET y PostgreSQL, donde he trabajado optimizando consultas, mejorando la eficiencia del sistema e implementando lógica de negocio compleja. Disfruto crear productos que satisfacen a los clientes, no solo algo útil, sino aplicaciones que realmente les encantan a los usuarios.',
-				'Mi trabajo está impulsado por el diseño de sistemas y la arquitectura backend, buscando soluciones que no solo sean útiles sino también escalables y fáciles de mantener. Me interesa especialmente diseñar servicios que crezcan de forma efectiva sin perder mantenibilidad.',
-				'Actualmente estoy ampliando mis habilidades hacia aplicaciones impulsadas por IA, combinando backend engineering con capacidades modernas de inteligencia artificial para construir sistemas más inteligentes. Me gusta aprender construyendo, mejorar continuamente mi enfoque y trabajar en proyectos que me hagan pensar como ingeniero, no solo como desarrollador.',
+				'Soy un Backend Software Engineer y Tech Lead con más de 5 años construyendo sistemas de producción en C#/.NET — desde plataformas de reservas multi-tenant hasta microservicios distribuidos que gestionan contratos, pagos y reservas a escala. He avanzado de colaborador individual a liderar equipos de ingeniería, tomando ownership de decisiones de arquitectura, diseño de servicios y entrega backend end-to-end.',
+				'Actualmente co-fundo y lidero la dirección técnica de Horizon.gh, donde diseño y construyo productos como ZitaSmart (una plataforma SaaS de reservas multi-tenant) junto a sistemas ERP especializados y plataformas de gestión náutica. También construyo automatización backend impulsada por IA en Crescendo Digital, integrando flujos de trabajo LLM en sistemas omnicanal.',
+				'Mi trabajo está impulsado por un profundo interés en el diseño de sistemas — flujos de trabajo distribuidos, patrones orientados a eventos, cuellos de botella de rendimiento y la traducción de requisitos de negocio complejos en código limpio y mantenible. Disfruto construir cosas que los usuarios realmente aman y los ingenieros se enorgullecen de mantener.',
 			],
 			stats: {
 				years: 'Años construyendo',
@@ -109,6 +112,7 @@ export const copy = {
 				learn: 'Por aprender',
 			},
 			skillsTitle: 'Áreas principales',
+			downloadCv: 'Descargar CV',
 		},
 		contact: {
 			title1: 'Hagamos',
@@ -130,20 +134,21 @@ export const copy = {
 			demo: 'Demo en vivo →',
 			diagramComing: 'Diagrama próximamente.',
 		},
-		footer: '© 2025. Diseñado con propósito.',
+		footer: 'Diseñado con propósito.',
 	},
 	it: {
 		nav: {
 			projects: 'Progetti',
 			about: 'Chi sono',
 			contact: 'Contatto',
+			cv: 'CV',
 		},
 		hero: {
 			title1: 'Backend',
 			title2: 'Systems Engineer',
 			name: 'Gabriel Esteban Rodriguez Delgado',
 			subtitle1: 'Progetto sistemi che scalano.',
-			subtitle2: 'Sto esplorando infrastrutture AI e ottimizzazione backend.',
+			subtitle2: 'Attualmente in costruzione presso Horizon.gh e Crescendo Digital.',
 			primaryCta: 'Vedi i miei lavori',
 			secondaryCta: 'Contattami',
 			scroll: '↓ scorri',
@@ -162,9 +167,9 @@ export const copy = {
 			title1: 'Chi',
 			title2: 'sono',
 			paragraphs: [
-				'Sono un Backend Engineer focalizzato sulla costruzione di sistemi scalabili e affidabili con architettura pulita e prestazioni solide. Ho esperienza pratica nello sviluppo di API di produzione con .NET e PostgreSQL, dove ho lavorato sull ottimizzazione delle query, sul miglioramento dell efficienza del sistema e sull implementazione di logiche di business complesse. Mi piace creare prodotti che soddisfano i clienti, non solo qualcosa di utile, ma applicazioni che gli utenti apprezzano davvero.',
-				'Il mio lavoro nasce da un forte interesse per il system design e l architettura backend, con l obiettivo di creare soluzioni non solo utili ma anche scalabili e facili da mantenere. Sono particolarmente interessato a progettare servizi che crescano in modo efficace restando manutenibili.',
-				'Attualmente sto ampliando le mie competenze verso applicazioni basate su AI, combinando backend engineering con capacità moderne di intelligenza artificiale per costruire sistemi più intelligenti. Mi piace imparare costruendo, perfezionare continuamente il mio approccio e lavorare su progetti che mi spingono a pensare come un ingegnere, non solo come uno sviluppatore.',
+				"Sono un Backend Software Engineer e Tech Lead con oltre 5 anni di esperienza nella costruzione di sistemi di produzione in C#/.NET — da piattaforme di prenotazione multi-tenant a microservizi distribuiti che gestiscono contratti, pagamenti e prenotazioni su larga scala. Sono passato da contributor individuale a guidare team di ingegneria, assumendo la responsabilità di decisioni architetturali, progettazione dei servizi e consegna backend end-to-end.",
+				"Attualmente co-fondo e guido la direzione tecnica di Horizon.gh, dove progetto e costruisco prodotti come ZitaSmart (una piattaforma SaaS di prenotazione multi-tenant) insieme a sistemi ERP specializzati e piattaforme di gestione nautica. Sviluppo anche automazione backend alimentata da AI presso Crescendo Digital, integrando flussi di lavoro LLM in sistemi di customer automation omnicanale.",
+				"Il mio lavoro è guidato da un profondo interesse per il system design — flussi di lavoro distribuiti, pattern event-driven, colli di bottiglia nelle performance e la traduzione di requisiti di business complessi in codice pulito e manutenibile. Mi piace costruire prodotti che gli utenti amano davvero e di cui gli ingegneri vanno orgogliosi.",
 			],
 			stats: {
 				years: 'Anni di esperienza',
@@ -173,6 +178,7 @@ export const copy = {
 				learn: 'Da imparare',
 			},
 			skillsTitle: 'Aree principali',
+			downloadCv: 'Scarica CV',
 		},
 		contact: {
 			title1: 'Costruiamo',
@@ -194,7 +200,7 @@ export const copy = {
 			demo: 'Demo live →',
 			diagramComing: 'Diagramma in arrivo.',
 		},
-		footer: '© 2025. Progettato con scopo.',
+		footer: 'Progettato con scopo.',
 	},
 } as const;
 

@@ -11,14 +11,34 @@ interface Props {
 			learn: string;
 		};
 		skillsTitle: string;
+		downloadCv: string;
 	};
 }
 
 const { about } = Astro.props;
+
+const skillGroups = [
+	{
+		label: 'Backend',
+		skills: ['C# / .NET', 'ASP.NET Core', 'EF Core', 'Go', 'Python', 'FastAPI'],
+	},
+	{
+		label: 'Architecture',
+		skills: ['Clean Architecture', 'CQRS', 'DDD', 'Microservices', 'Event-Driven', 'Saga Pattern'],
+	},
+	{
+		label: 'Cloud & Data',
+		skills: ['PostgreSQL', 'RabbitMQ', 'Docker', 'Azure', 'GitHub Actions'],
+	},
+	{
+		label: 'Frontend & AI',
+		skills: ['TypeScript', 'React / Next.js', 'LLM Integration', 'Prompt Engineering'],
+	},
+];
 ---
 
 <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 bg-dark-bg">
-	<div class="max-w-4xl mx-auto space-y-12">
+	<div class="max-w-6xl mx-auto space-y-12">
 		<!-- Section header -->
 		<div class="space-y-4 animate-slide-up">
 			<h2 class="text-4xl sm:text-5xl font-black">
@@ -27,55 +47,74 @@ const { about } = Astro.props;
 			</h2>
 		</div>
 
-		<!-- Content -->
-		<div class="prose prose-invert max-w-none space-y-6 animate-slide-up" style={{ animationDelay: '100ms' }}>
-			{about.paragraphs.map((paragraph) => (
-				<p class="text-text-secondary text-lg leading-relaxed">{paragraph}</p>
-			))}
+		<!-- Two-column content -->
+		<div class="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-10 lg:gap-16 items-start animate-slide-up" style={{ animationDelay: '100ms' }}>
 
-			<!-- Quick stats -->
-			<div class="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8">
-				<div class="border-l-2 border-accent pl-4">
-					<div class="text-2xl font-black text-accent">3+</div>
-					<div class="text-sm text-text-secondary">{about.stats.years}</div>
+			<!-- Left: Profile image + download CV -->
+			<div class="flex flex-col items-center lg:items-start gap-5">
+				<div class="profile-image-wrapper">
+					<img
+						src="/CV_Image.png"
+						alt="Gabriel Rodriguez"
+						class="w-44 h-44 lg:w-full lg:h-auto object-cover object-top rounded-2xl ring-2 ring-accent/40 shadow-lg shadow-accent/10 profile-img"
+					/>
 				</div>
-				<div class="border-l-2 border-accent pl-4">
-					<div class="text-2xl font-black text-accent">25+</div>
-					<div class="text-sm text-text-secondary">{about.stats.delivered}</div>
-				</div>
-				<div class="border-l-2 border-accent pl-4">
-					<div class="text-2xl font-black text-accent">5+</div>
-					<div class="text-sm text-text-secondary">{about.stats.languages}</div>
-				</div>
-				<div class="border-l-2 border-accent pl-4">
-					<div class="text-2xl font-black text-accent">∞</div>
-					<div class="text-sm text-text-secondary">{about.stats.learn}</div>
-				</div>
+				<a
+					href="/Gabriel Rodriguez CV.pdf"
+					download
+					class="w-full text-center lg:text-left px-4 py-2.5 border border-accent/40 text-accent text-sm font-mono rounded hover:bg-accent/10 hover:border-accent transition-all duration-250 group"
+				>
+					{about.downloadCv}
+					<span class="inline-block ml-1.5 transition-transform group-hover:translate-y-0.5">↓</span>
+				</a>
 			</div>
 
-			<!-- Skills -->
-			<div class="pt-8">
-				<h3 class="text-lg font-bold mb-4">{about.skillsTitle}</h3>
-				<div class="flex flex-wrap gap-2">
-					{
-						[
-							'Backend Architecture',
-							'Distributed Systems',
-							'Database Design',
-                            '.NET',
-							'Go',
-							'TypeScript',
-							'Python',
-							'PostgreSQL',
-							'Microservices',
-							'API Design',
-							'Performance Optimization',
-						].map((skill) => (
-							<span class="px-4 py-2 bg-border text-text-secondary text-sm rounded border border-border/50 hover:border-accent/50 hover:text-accent transition-all duration-250">
-								{skill}
-							</span>
-						))
-					}
+			<!-- Right: Text + stats + skills -->
+			<div class="prose prose-invert max-w-none space-y-8">
+				<!-- Bio paragraphs -->
+				<div class="space-y-5">
+					{about.paragraphs.map((paragraph: string) => (
+						<p class="text-text-secondary text-base lg:text-lg leading-relaxed">{paragraph}</p>
+					))}
+				</div>
+
+				<!-- Quick stats -->
+				<div class="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-2">
+					<div class="border-l-2 border-accent pl-4">
+						<div class="text-2xl font-black text-accent">5+</div>
+						<div class="text-sm text-text-secondary">{about.stats.years}</div>
+					</div>
+					<div class="border-l-2 border-accent pl-4">
+						<div class="text-2xl font-black text-accent">25+</div>
+						<div class="text-sm text-text-secondary">{about.stats.delivered}</div>
+					</div>
+					<div class="border-l-2 border-accent pl-4">
+						<div class="text-2xl font-black text-accent">5+</div>
+						<div class="text-sm text-text-secondary">{about.stats.languages}</div>
+					</div>
+					<div class="border-l-2 border-accent pl-4">
+						<div class="text-2xl font-black text-accent">∞</div>
+						<div class="text-sm text-text-secondary">{about.stats.learn}</div>
+					</div>
+				</div>
+
+				<!-- Skills grouped -->
+				<div class="pt-2">
+					<h3 class="text-lg font-bold mb-6">{about.skillsTitle}</h3>
+					<div class="space-y-5">
+						{skillGroups.map((group) => (
+							<div>
+								<p class="text-xs font-mono text-text-secondary/60 uppercase tracking-widest mb-2.5">{group.label}</p>
+								<div class="flex flex-wrap gap-2">
+									{group.skills.map((skill) => (
+										<span class="px-3 py-1.5 bg-border text-text-secondary text-sm rounded border border-border/50 hover:border-accent/50 hover:text-accent transition-all duration-250">
+											{skill}
+										</span>
+									))}
+								</div>
+							</div>
+						))}
+					</div>
 				</div>
 			</div>
 		</div>
@@ -103,5 +142,14 @@ const { about } = Astro.props;
 		--prose-body: rgba(255, 255, 255, 0.8);
 		--prose-headings: rgba(255, 255, 255, 1);
 		--prose-links: rgb(79, 70, 229);
+	}
+
+	.profile-img {
+		transition: box-shadow 0.3s ease, transform 0.3s ease;
+	}
+
+	.profile-image-wrapper:hover .profile-img {
+		box-shadow: 0 0 32px rgba(79, 70, 229, 0.25);
+		transform: scale(1.01);
 	}
 </style>

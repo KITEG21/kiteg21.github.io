@@ -1,0 +1,393 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { copy } from '../i18n';
+
+const t = copy.en;
+
+const domains = [
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l6-6-6-6"/><path d="M12 19h8"/></svg>`,
+    title: '.NET Ecosystem',
+    description: 'Production-grade backend with years of deep framework knowledge. Clean Architecture from day one.',
+    technologies: ['C#', 'ASP.NET Core', 'EF Core', 'FastEndpoints', '.NET Aspire', 'YARP'],
+    color: 'from-violet-500/8 to-transparent',
+    borderHover: 'hover:border-violet-500/40',
+    iconColor: 'text-violet-400',
+    iconBg: 'bg-violet-500/10 border-violet-500/20',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3l-4 4-4-4"/><circle cx="8" cy="14" r="1"/><circle cx="16" cy="14" r="1"/><path d="M8 14h8"/></svg>`,
+    title: 'System Architecture',
+    description: 'Designing for complexity — translating messy business requirements into clean, scalable systems.',
+    technologies: ['Clean Architecture', 'CQRS', 'DDD', 'Microservices', 'Event-Driven', 'Saga Pattern'],
+    color: 'from-indigo-500/8 to-transparent',
+    borderHover: 'hover:border-indigo-500/40',
+    iconColor: 'text-indigo-400',
+    iconBg: 'bg-indigo-500/10 border-indigo-500/20',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>`,
+    title: 'Cloud & DevOps',
+    description: 'Azure-native deployments, containerized workflows, and fully automated CI/CD pipelines.',
+    technologies: ['Azure App Service', 'Blob Storage', 'CosmosDB', 'Key Vault', 'Docker', 'GitHub Actions'],
+    color: 'from-sky-500/8 to-transparent',
+    borderHover: 'hover:border-sky-500/40',
+    iconColor: 'text-sky-400',
+    iconBg: 'bg-sky-500/10 border-sky-500/20',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>`,
+    title: 'Data & Messaging',
+    description: 'Reliable persistence and async inter-service communication at production scale.',
+    technologies: ['PostgreSQL', 'MySQL', 'Oracle', 'RabbitMQ', 'CQRS Queries', 'Async Patterns'],
+    color: 'from-emerald-500/8 to-transparent',
+    borderHover: 'hover:border-emerald-500/40',
+    iconColor: 'text-emerald-400',
+    iconBg: 'bg-emerald-500/10 border-emerald-500/20',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>`,
+    title: 'AI & Automation',
+    description: 'LLM-powered workflows embedded into real business operations — not just demos.',
+    technologies: ['LLM Integration', 'Prompt Engineering', 'Omnichannel Automation', 'Data Pipelines'],
+    color: 'from-amber-500/8 to-transparent',
+    borderHover: 'hover:border-amber-500/40',
+    iconColor: 'text-amber-400',
+    iconBg: 'bg-amber-500/10 border-amber-500/20',
+  },
+  {
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
+    title: 'Full-Stack & Beyond',
+    description: 'End-to-end delivery when the product needs it — from Go microservices to React UIs.',
+    technologies: ['TypeScript', 'React', 'Next.js', 'Go', 'Python', 'FastAPI', 'Astro'],
+    color: 'from-rose-500/8 to-transparent',
+    borderHover: 'hover:border-rose-500/40',
+    iconColor: 'text-rose-400',
+    iconBg: 'bg-rose-500/10 border-rose-500/20',
+  },
+];
+
+const experience = [
+  {
+    role: 'CEO & Co-Founder',
+    company: 'Horizon.gh',
+    period: 'Feb 2026',
+    periodEnd: 'Present',
+    badge: 'Active',
+    badgeColor: 'text-green-400 border-green-400/30 bg-green-400/5',
+    highlights: [
+      'Lead all technical direction, architecture decisions, and product delivery',
+      'Built ZitaSmart: multi-tenant SaaS booking platform — 45% productivity improvement',
+      'Designed yacht management platform with BackOffice and customer-facing website',
+      'Developed specialized ERP solutions for food-service businesses',
+    ],
+  },
+  {
+    role: 'Software Engineer',
+    company: 'Crescendo Digital',
+    period: 'May 2026',
+    periodEnd: 'Present',
+    badge: 'Part-time → Full-time',
+    badgeColor: 'text-blue-400 border-blue-400/30 bg-blue-400/5',
+    highlights: [
+      'Integrate LLM workflows into omnichannel automation (Facebook, Instagram, SMS, WhatsApp)',
+      'Built data extraction system processing 15,000+ records in under 30 minutes',
+      'Design scalable backend automation for marketing operations',
+    ],
+  },
+  {
+    role: 'Backend Engineer → Sub Tech Lead',
+    company: 'Avangenio (GSI)',
+    period: 'Nov 2024',
+    periodEnd: 'Aug 2026',
+    badge: 'Miami, FL',
+    badgeColor: 'text-text-secondary border-border bg-border/50',
+    highlights: [
+      'Promoted to Sub Tech Lead — coordinated 2 developers across 10+ domain services',
+      'Improved application performance by 75% through query optimization and caching',
+      'Implemented async workflows using RabbitMQ with CQRS-based Saga patterns',
+    ],
+  },
+  {
+    role: 'Backend Tech Lead',
+    company: 'Aven',
+    period: 'Apr 2024',
+    periodEnd: 'Nov 2024',
+    badge: 'Contract',
+    badgeColor: 'text-text-secondary border-border bg-border/50',
+    highlights: [
+      'Led team of 4 developers building a freelance marketplace platform',
+      'Guided backend architecture decisions using C#/.NET across business + offer domains',
+    ],
+  },
+  {
+    role: 'Software Developer',
+    company: 'Freelance',
+    period: 'Mar 2021',
+    periodEnd: 'Mar 2024',
+    badge: 'Independent',
+    badgeColor: 'text-text-secondary border-border bg-border/50',
+    highlights: [
+      'Built patient & disease management system with clinical workflows in C#/.NET',
+      'Developed multi-vehicle rental reservation REST API (early version of Renta)',
+    ],
+  },
+];
+
+const stats = [
+  { value: '5+', label: 'Years Building' },
+  { value: '25+', label: 'Projects' },
+  { value: '3', label: 'Active Roles' },
+  { value: 'C1', label: 'English Level' },
+];
+---
+
+<Layout
+  title="Gabriel.rd | CV"
+  description="CV and technical profile of Gabriel Rodriguez — Backend Software Engineer, Tech Lead, Co-Founder."
+  locale="en"
+  copy={t}
+>
+  <!-- Page background: subtle dot grid -->
+  <div class="fixed inset-0 -z-10 pointer-events-none" style="background-image: radial-gradient(circle, rgba(79,70,229,0.06) 1px, transparent 1px); background-size: 28px 28px;"></div>
+
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 space-y-24">
+
+    <!-- ── Header ─────────────────────────────────────────────────────────── -->
+    <header class="cv-section space-y-10">
+
+      <!-- Profile row -->
+      <div class="flex flex-col sm:flex-row items-start gap-7">
+        <!-- Avatar -->
+        <div class="relative flex-shrink-0">
+          <img
+            src="/CV_Image.png"
+            alt="Gabriel Rodriguez"
+            class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover object-top ring-2 ring-accent/35 shadow-lg shadow-accent/10"
+          />
+          <span class="absolute -bottom-2 -right-2 w-5 h-5 rounded-full bg-green-400 border-2 border-dark-bg shadow-sm"></span>
+        </div>
+
+        <!-- Name + title + links -->
+        <div class="space-y-3 flex-1">
+          <div>
+            <h1 class="text-3xl sm:text-4xl font-black leading-tight">Gabriel Esteban Rodríguez Delgado</h1>
+            <p class="text-accent font-mono text-sm mt-1">Backend Software Engineer · Tech Lead · Co-Founder</p>
+          </div>
+          <p class="text-text-secondary text-sm max-w-xl leading-relaxed">
+            5+ years building production systems in C#/.NET — distributed architectures, tech leadership, and AI-powered automation.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <a href="/Gabriel Rodriguez CV.pdf" download
+               class="inline-flex items-center gap-2 px-4 py-2 bg-accent text-dark-bg text-sm font-semibold rounded-lg hover:bg-accent-hover transition-colors group">
+              Download PDF
+              <span class="transition-transform group-hover:translate-y-0.5">↓</span>
+            </a>
+            <a href="https://github.com/KITEG21" target="_blank" rel="noopener"
+               class="inline-flex items-center gap-2 px-4 py-2 border border-border text-text-secondary text-sm rounded-lg hover:border-accent/50 hover:text-accent transition-all">
+              GitHub ↗
+            </a>
+            <a href="https://linkedin.com/in/gabriel-esteban-rd/" target="_blank" rel="noopener"
+               class="inline-flex items-center gap-2 px-4 py-2 border border-border text-text-secondary text-sm rounded-lg hover:border-accent/50 hover:text-accent transition-all">
+              LinkedIn ↗
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats strip -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        {stats.map(s => (
+          <div class="relative overflow-hidden p-4 rounded-xl border border-border/70 bg-dark-bg text-center group hover:border-accent/40 transition-colors">
+            <div class="absolute inset-0 bg-gradient-to-b from-accent/4 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div class="relative text-2xl font-black text-accent">{s.value}</div>
+            <div class="relative text-xs text-text-secondary mt-0.5 font-mono">{s.label}</div>
+          </div>
+        ))}
+      </div>
+
+      <div class="h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent"></div>
+    </header>
+
+    <!-- ── Technical Domains ──────────────────────────────────────────────── -->
+    <section class="cv-section space-y-8">
+      <div class="space-y-1">
+        <p class="text-xs font-mono text-accent/70 uppercase tracking-widest">Core Competencies</p>
+        <h2 class="text-2xl sm:text-3xl font-black">
+          Technical <span class="text-accent">Domains</span>
+        </h2>
+        <p class="text-text-secondary text-sm">Areas where I build with depth, not just breadth.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {domains.map((d, i) => (
+          <div
+            class={`domain-card relative overflow-hidden p-5 rounded-xl border border-border/60 transition-all duration-300 group ${d.borderHover} hover:-translate-y-1 hover:shadow-xl hover:shadow-black/20`}
+            style={`animation-delay: ${i * 70}ms`}
+          >
+            <!-- Gradient bg (visible on hover) -->
+            <div class={`absolute inset-0 bg-gradient-to-br ${d.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
+
+            <!-- Card number -->
+            <div class="absolute top-3 right-4 text-5xl font-black font-mono text-white/4 select-none leading-none group-hover:text-white/6 transition-colors">
+              {String(i + 1).padStart(2, '0')}
+            </div>
+
+            <div class="relative z-10 space-y-4">
+              <!-- Icon + title -->
+              <div class="flex items-center gap-3">
+                <div class={`w-9 h-9 rounded-lg border flex items-center justify-center flex-shrink-0 ${d.iconBg} ${d.iconColor} transition-all group-hover:scale-110`}>
+                  <div class="w-4 h-4" set:html={d.icon} />
+                </div>
+                <h3 class="font-bold text-sm leading-tight">{d.title}</h3>
+              </div>
+
+              <p class="text-text-secondary text-xs leading-relaxed">{d.description}</p>
+
+              <!-- Tech badges -->
+              <div class="flex flex-wrap gap-1.5">
+                {d.technologies.map(tech => (
+                  <span class="px-2 py-0.5 text-xs rounded bg-dark-bg border border-border/80 text-text-secondary group-hover:border-white/10 transition-colors">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ── Experience ─────────────────────────────────────────────────────── -->
+    <section class="cv-section space-y-8">
+      <div class="space-y-1">
+        <p class="text-xs font-mono text-accent/70 uppercase tracking-widest">Career</p>
+        <h2 class="text-2xl sm:text-3xl font-black">Work <span class="text-accent">Experience</span></h2>
+      </div>
+
+      <div class="relative">
+        <!-- Timeline spine -->
+        <div class="absolute left-[7px] top-2 bottom-0 w-px bg-gradient-to-b from-accent/40 via-accent/20 to-transparent hidden sm:block"></div>
+
+        <div class="space-y-0">
+          {experience.map((job, i) => (
+            <div class="relative sm:pl-10 group">
+              <!-- Timeline dot -->
+              <div class="absolute left-0 top-[7px] w-[15px] h-[15px] rounded-full border-2 border-accent/50 bg-dark-bg hidden sm:flex items-center justify-center transition-all duration-250 group-hover:border-accent group-hover:bg-accent/15 group-hover:shadow-md group-hover:shadow-accent/30">
+                <div class="w-1.5 h-1.5 rounded-full bg-accent/60 group-hover:bg-accent transition-colors"></div>
+              </div>
+
+              <div class={`pb-10 ${i < experience.length - 1 ? '' : 'pb-0'}`}>
+                <!-- Job header -->
+                <div class="flex flex-wrap items-start justify-between gap-2 mb-3">
+                  <div>
+                    <span class="font-bold text-base">{job.role}</span>
+                    <span class="text-accent/80"> · {job.company}</span>
+                  </div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="text-xs font-mono text-text-secondary/60">
+                      {job.period} — {job.periodEnd}
+                    </span>
+                    <span class={`text-xs px-2 py-0.5 rounded-full border font-mono ${job.badgeColor}`}>
+                      {job.badge}
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Highlights -->
+                <ul class="space-y-2">
+                  {job.highlights.map(h => (
+                    <li class="flex gap-3 text-text-secondary text-sm leading-relaxed">
+                      <span class="text-accent/40 mt-0.5 flex-shrink-0 group-hover:text-accent/70 transition-colors">›</span>
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+
+                {i < experience.length - 1 && (
+                  <div class="mt-8 border-t border-border/30 sm:hidden"></div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Education + Languages ──────────────────────────────────────────── -->
+    <section class="cv-section grid grid-cols-1 sm:grid-cols-2 gap-5">
+
+      <!-- Education -->
+      <div class="relative overflow-hidden p-6 rounded-xl border border-border/70 space-y-4 group hover:border-accent/30 transition-colors">
+        <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/4 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <div class="relative">
+          <p class="text-xs font-mono text-accent/70 uppercase tracking-widest mb-3">Education</p>
+          <div class="space-y-1">
+            <p class="font-bold">B.Sc. Computer Engineering</p>
+            <p class="text-text-secondary text-sm">CUJAE – Havana, Cuba</p>
+            <p class="text-xs font-mono text-text-secondary/60 mt-2">Sep 2024 — Jun 2028 (Expected)</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Languages -->
+      <div class="relative overflow-hidden p-6 rounded-xl border border-border/70 space-y-4 group hover:border-accent/30 transition-colors">
+        <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/4 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <div class="relative space-y-4">
+          <p class="text-xs font-mono text-accent/70 uppercase tracking-widest">Languages</p>
+          {[
+            { lang: 'Spanish', level: 'Native', pct: 100 },
+            { lang: 'English', level: 'C1 Advanced', pct: 85 },
+            { lang: 'Italian', level: 'Intermediate', pct: 52 },
+          ].map(({ lang, level, pct }) => (
+            <div class="space-y-1.5">
+              <div class="flex justify-between text-sm">
+                <span class="font-medium">{lang}</span>
+                <span class="text-text-secondary text-xs font-mono">{level}</span>
+              </div>
+              <div class="h-1.5 rounded-full bg-border/60 overflow-hidden">
+                <div
+                  class="lang-bar h-full rounded-full bg-gradient-to-r from-accent/80 to-accent"
+                  style={`--pct: ${pct}%`}
+                ></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+  </div>
+</Layout>
+
+<style>
+  /* Page-level enter animation */
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .cv-section {
+    animation: fadeSlideUp 0.6s ease-out forwards;
+    opacity: 0;
+  }
+  .cv-section:nth-child(1) { animation-delay: 0ms; }
+  .cv-section:nth-child(2) { animation-delay: 120ms; }
+  .cv-section:nth-child(3) { animation-delay: 220ms; }
+  .cv-section:nth-child(4) { animation-delay: 300ms; }
+
+  /* Domain cards stagger */
+  .domain-card {
+    animation: fadeSlideUp 0.5s ease-out forwards;
+    opacity: 0;
+  }
+
+  /* Language bar animation */
+  .lang-bar {
+    width: 0;
+    animation: growBar 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
+  }
+  @keyframes growBar {
+    to { width: var(--pct); }
+  }
+</style>
