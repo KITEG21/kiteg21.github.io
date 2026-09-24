@@ -1,0 +1,18 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CVContent from '../../components/CVContent.astro';
+import { copy } from '../../i18n';
+import { getCvCopy } from '../../data/cvTranslations';
+
+const t = copy.it;
+const cv = getCvCopy('it');
+---
+
+<Layout
+	title="Gabriel.rd | CV"
+	description="CV e profilo tecnico di Gabriel Rodríguez — Backend Software Engineer, Tech Lead, Co-Fondatore."
+	locale="it"
+	copy={t}
+>
+	<CVContent cv={cv} />
+</Layout>
